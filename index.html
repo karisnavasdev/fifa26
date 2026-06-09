@@ -3,278 +3,285 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FIFA 26 — World Cup Meme Coin</title>
+    <title>FIFA 26 — World Cup Meme Coin on Solana</title>
+    <meta name="description" content="FIFA 26 — World Cup meme coin on Solana. Buy on PumpSwap, bet on 48 nations, track live chart on DexScreener.">
+    <meta property="og:title" content="FIFA 26 — World Cup Meme Coin">
+    <meta property="og:description" content="The World Cup on Solana. Trade, bet, and join the squad.">
+    <meta property="og:image" content="banner.png">
     <link rel="icon" href="logo.png" type="image/png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --navy: #0b1d3a;
-            --navy-light: #14325f;
+            --bg: #05080f;
+            --bg-elevated: #0c1220;
+            --bg-card: rgba(17, 24, 39, 0.82);
+            --line: rgba(255,255,255,0.08);
+            --line-gold: rgba(212,175,55,0.25);
             --gold: #d4af37;
-            --gold-bright: #ffd700;
-            --gold-dark: #a67c00;
-            --pitch: #1a6b38;
-            --pitch-dark: #0f4a26;
-            --pitch-light: #2d9a55;
-            --white: #ffffff;
-            --glass: rgba(11, 29, 58, 0.75);
+            --gold-2: #f5d061;
+            --gold-dim: #9a7b2c;
+            --text: #f8fafc;
+            --text-2: #94a3b8;
+            --text-3: #64748b;
+            --green: #34d399;
+            --header: 80px;
+            --max: 1200px;
+            --radius: 12px;
+            --display: 'Oswald', sans-serif;
+            --body: 'Inter', sans-serif;
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; scroll-padding-top: calc(var(--header) + 24px); }
 
         body {
-            font-family: 'Inter', sans-serif;
-            background: var(--navy);
-            color: var(--white);
+            font-family: var(--body);
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
             overflow-x: hidden;
-            position: relative;
         }
 
-        body::before {
-            content: '';
+        .site-bg {
             position: fixed;
             inset: 0;
-            background: url('123.jpg') center center / cover no-repeat;
-            z-index: -2;
-        }
-
-        body::after {
-            content: '';
-            position: fixed;
-            inset: 0;
-            background: rgba(11, 29, 58, 0.78);
             z-index: -1;
+            pointer-events: none;
+            overflow: hidden;
         }
 
-        /* ── Countdown Bar ── */
-        .countdown-bar {
+        .site-bg-image {
+            position: absolute;
+            inset: 0;
+            background: url('FfCdlcnXwAAHAVV.jpg') center 30% / cover no-repeat;
+            transform: scale(1.02);
+        }
+
+        .site-bg-overlay {
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(ellipse 90% 70% at 50% 35%, rgba(5, 8, 15, 0.35) 0%, rgba(5, 8, 15, 0.72) 100%),
+                linear-gradient(180deg, rgba(5, 8, 15, 0.65) 0%, rgba(5, 8, 15, 0.5) 45%, rgba(5, 8, 15, 0.75) 100%);
+        }
+
+        @media (max-width: 768px) {
+            .site-bg-image {
+                background-position: center 25%;
+            }
+        }
+
+        img { display: block; max-width: 100%; }
+        a { color: inherit; text-decoration: none; }
+
+        .wrap { width: min(var(--max), 100% - 48px); margin-inline: auto; }
+
+        /* ─── TOP BAR ─── */
+        .topbar {
             position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 1001;
+            inset: 0 0 auto 0;
+            z-index: 1000;
+            height: var(--header);
+            display: grid;
+            grid-template-columns: auto 1fr auto;
+            align-items: center;
+            gap: 32px;
+            padding: 0 24px;
+            border-bottom: 1px solid transparent;
+            transition: background .3s, border-color .3s, box-shadow .3s;
+        }
+
+        .topbar.is-scrolled {
+            background: rgba(5,8,15,0.92);
+            backdrop-filter: blur(20px);
+            border-color: var(--line);
+            box-shadow: 0 12px 40px rgba(0,0,0,.35);
+        }
+
+        .logo-link {
             display: flex;
             align-items: center;
-            justify-content: center;
-            gap: 16px;
-            flex-wrap: wrap;
-            padding: 8px 20px;
-            background: linear-gradient(90deg, var(--navy) 0%, #1a3a1a 50%, var(--navy) 100%);
-            border-bottom: 2px solid var(--gold);
-            box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+            gap: 12px;
+            flex-shrink: 0;
         }
 
-        .countdown-label {
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: 0.95rem;
-            letter-spacing: 2px;
-            color: var(--gold-bright);
+        .logo-link img {
+            width: 42px;
+            height: 42px;
+            border-radius: 8px;
+            border: 1px solid var(--line-gold);
+        }
+
+        .logo-link strong {
+            font-family: var(--display);
+            font-size: 1.35rem;
+            font-weight: 700;
+            letter-spacing: .06em;
+            text-transform: uppercase;
+        }
+
+        .logo-link strong em {
+            font-style: normal;
+            color: var(--gold-2);
+        }
+
+        .nav {
+            display: flex;
+            justify-content: center;
+            gap: 4px;
+        }
+
+        .nav a {
+            font-size: .8rem;
+            font-weight: 500;
+            color: var(--text-2);
+            padding: 8px 14px;
+            border-radius: 8px;
+            transition: color .2s, background .2s;
+        }
+
+        .nav a:hover, .nav a.is-active {
+            color: var(--text);
+            background: rgba(255,255,255,.05);
+        }
+
+        .topbar-right {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-shrink: 0;
+        }
+
+        .countdown {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 6px 14px;
+            background: rgba(255,255,255,.04);
+            border: 1px solid var(--line);
+            border-radius: 100px;
+        }
+
+        .countdown-tag {
+            font-size: .62rem;
+            font-weight: 600;
+            letter-spacing: .12em;
+            text-transform: uppercase;
+            color: var(--text-3);
             white-space: nowrap;
         }
 
-        .countdown-timer {
+        .countdown-digits {
             display: flex;
-            gap: 8px;
-            align-items: center;
+            gap: 4px;
+            align-items: baseline;
         }
 
-        .countdown-unit {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            min-width: 48px;
-        }
-
-        .countdown-unit .num {
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: 1.5rem;
-            line-height: 1;
-            color: var(--white);
-            background: rgba(0,0,0,0.35);
-            border: 1px solid rgba(212,175,55,0.4);
-            border-radius: 8px;
-            padding: 4px 10px;
-            min-width: 44px;
+        .cd {
+            font-family: var(--display);
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--gold-2);
+            min-width: 22px;
             text-align: center;
         }
 
-        .countdown-unit .lbl {
-            font-size: 0.6rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            color: rgba(255,255,255,0.55);
-            margin-top: 2px;
+        .cd-u {
+            font-size: .55rem;
+            color: var(--text-3);
+            margin-left: 1px;
         }
 
-        .countdown-sep {
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: 1.4rem;
-            color: var(--gold);
-            margin-bottom: 14px;
-        }
+        .cd-dot { color: var(--text-3); font-size: .8rem; }
 
         .countdown-live {
-            font-size: 0.75rem;
+            display: none;
+            font-size: .68rem;
             font-weight: 700;
-            letter-spacing: 2px;
-            color: #4ade80;
-            animation: pulseLive 1.5s ease-in-out infinite;
+            letter-spacing: .1em;
+            color: var(--green);
         }
 
-        @keyframes pulseLive {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
+        .icon-link {
+            width: 36px;
+            height: 36px;
+            display: grid;
+            place-items: center;
+            border-radius: 8px;
+            border: 1px solid var(--line);
+            background: rgba(255,255,255,.03);
+            transition: border-color .2s, background .2s;
         }
 
-        /* ── Header ── */
-        header {
-            position: fixed;
-            top: 46px;
-            left: 0;
-            right: 0;
-            z-index: 1000;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 12px 32px;
-            background: linear-gradient(180deg, rgba(11,29,58,0.97) 0%, rgba(11,29,58,0.6) 80%, transparent 100%);
-            backdrop-filter: blur(8px);
-            transition: background 0.3s;
-        }
+        .icon-link:hover { border-color: var(--line-gold); background: rgba(212,175,55,.06); }
+        .icon-link svg { width: 15px; height: 15px; fill: var(--text); }
 
-        header.scrolled {
-            background: rgba(11,29,58,0.97);
-            box-shadow: 0 4px 30px rgba(0,0,0,0.4);
-        }
-
-        .header-brand {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            text-decoration: none;
-            color: var(--white);
-        }
-
-        .header-brand img {
-            width: 48px;
-            height: 48px;
-            border-radius: 50%;
-            border: 2px solid var(--gold);
-            object-fit: cover;
-        }
-
-        .header-brand span {
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: 1.6rem;
-            letter-spacing: 3px;
-            background: linear-gradient(135deg, var(--gold-bright), var(--gold));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        nav {
-            display: flex;
-            align-items: center;
-            gap: 28px;
-        }
-
-        nav a {
-            color: rgba(255,255,255,0.85);
-            text-decoration: none;
-            font-size: 0.85rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            transition: color 0.3s;
-        }
-
-        nav a:hover {
-            color: var(--gold-bright);
-        }
-
-        .nav-buy {
-            background: linear-gradient(135deg, var(--gold-bright), var(--gold-dark));
-            color: var(--navy) !important;
-            padding: 8px 22px;
-            border-radius: 50px;
-            font-weight: 800 !important;
-            transition: transform 0.3s, box-shadow 0.3s !important;
-        }
-
-        .nav-buy:hover {
-            transform: scale(1.05);
-            box-shadow: 0 4px 20px rgba(212,175,55,0.5);
-            color: var(--navy) !important;
-        }
-
-        .header-socials {
-            display: flex;
-            gap: 12px;
-        }
-
-        .header-socials a {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 38px;
-            height: 38px;
-            border-radius: 50%;
-            background: rgba(255,255,255,0.08);
-            border: 1px solid rgba(212,175,55,0.3);
-            transition: all 0.3s;
-            text-decoration: none;
-        }
-
-        .header-socials a:hover {
-            background: rgba(212,175,55,0.2);
-            border-color: var(--gold);
-            transform: translateY(-2px);
-        }
-
-        .header-socials svg {
-            width: 18px;
-            height: 18px;
-            fill: var(--white);
-        }
-
-        .menu-toggle {
+        .burger {
             display: none;
             background: none;
             border: none;
             cursor: pointer;
-            padding: 4px;
+            padding: 6px;
         }
 
-        .menu-toggle span {
+        .burger span {
             display: block;
-            width: 24px;
+            width: 20px;
             height: 2px;
-            background: var(--gold);
-            margin: 5px 0;
-            transition: 0.3s;
+            background: var(--text);
+            margin: 4px 0;
         }
 
-        /* ── Hero ── */
-        #hero {
-            position: relative;
-            height: 100vh;
-            min-height: 600px;
-            display: flex;
-            flex-direction: column;
+        /* ─── BUTTONS ─── */
+        .btn {
+            display: inline-flex;
             align-items: center;
             justify-content: center;
-            text-align: center;
+            gap: 8px;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: .84rem;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: transform .15s, box-shadow .15s, background .15s;
+        }
+
+        .btn-gold {
+            background: linear-gradient(180deg, var(--gold-2) 0%, var(--gold) 100%);
+            color: #0a0f18;
+            box-shadow: 0 1px 0 rgba(255,255,255,.2) inset, 0 4px 16px rgba(212,175,55,.2);
+        }
+
+        .btn-gold:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 1px 0 rgba(255,255,255,.2) inset, 0 8px 24px rgba(212,175,55,.3);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--text);
+            border: 1px solid var(--line);
+        }
+
+        .btn-outline:hover {
+            border-color: var(--line-gold);
+            background: rgba(212,175,55,.05);
+        }
+
+        .btn:disabled { opacity: .35; cursor: not-allowed; transform: none !important; }
+
+        /* ─── HERO ─── */
+        .hero {
+            position: relative;
+            min-height: 100svh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: calc(var(--header) + 48px) 24px 100px;
             overflow: hidden;
         }
 
@@ -287,1429 +294,1003 @@
             z-index: 0;
         }
 
-        .hero-overlay {
+        .hero-shade {
             position: absolute;
             inset: 0;
             background:
-                linear-gradient(180deg, rgba(11,29,58,0.5) 0%, rgba(15,74,38,0.4) 50%, rgba(11,29,58,0.85) 100%),
-                radial-gradient(ellipse at center, transparent 30%, rgba(11,29,58,0.6) 100%);
+                linear-gradient(180deg, rgba(5,8,15,.82) 0%, rgba(5,8,15,.55) 45%, rgba(5,8,15,.9) 100%),
+                radial-gradient(ellipse 70% 50% at 50% 50%, transparent, rgba(5,8,15,.4));
             z-index: 1;
         }
 
-        .hero-pitch-lines {
-            position: absolute;
-            inset: 0;
-            z-index: 2;
-            opacity: 0.08;
-            background:
-                repeating-linear-gradient(90deg, transparent, transparent 80px, rgba(255,255,255,0.5) 80px, rgba(255,255,255,0.5) 82px);
-            pointer-events: none;
-        }
-
-        .hero-content {
+        .hero-grid {
             position: relative;
-            z-index: 3;
-            padding: 20px;
-            max-width: 900px;
+            z-index: 2;
+            width: min(var(--max), 100%);
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1.1fr .9fr;
+            gap: 48px;
+            align-items: center;
         }
 
-        .hero-logo {
-            width: clamp(180px, 30vw, 320px);
-            margin-bottom: 24px;
-            filter: drop-shadow(0 8px 30px rgba(0,0,0,0.6));
-            animation: heroFloat 4s ease-in-out infinite;
-        }
-
-        @keyframes heroFloat {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
-        }
-
-        .hero-badge {
-            display: inline-block;
-            background: rgba(212,175,55,0.15);
-            border: 1px solid rgba(212,175,55,0.4);
-            padding: 6px 20px;
-            border-radius: 50px;
-            font-size: 0.8rem;
-            font-weight: 700;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            color: var(--gold-bright);
-            margin-bottom: 16px;
-            animation: fadeUp 0.8s ease-out;
-        }
-
-        .hero-title {
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: clamp(3rem, 10vw, 7rem);
-            letter-spacing: 6px;
-            line-height: 1;
-            text-shadow: 0 4px 20px rgba(0,0,0,0.5);
-            animation: fadeUp 0.8s ease-out 0.1s backwards;
-        }
-
-        .hero-title .gold {
-            background: linear-gradient(135deg, var(--gold-bright), var(--gold), var(--gold-dark));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .hero-tagline {
-            font-size: clamp(1rem, 2.5vw, 1.35rem);
-            max-width: 600px;
-            margin: 20px auto 36px;
-            opacity: 0.9;
-            line-height: 1.6;
-            animation: fadeUp 0.8s ease-out 0.2s backwards;
-        }
-
-        .hero-buttons {
-            display: flex;
-            gap: 16px;
-            justify-content: center;
-            flex-wrap: wrap;
-            animation: fadeUp 0.8s ease-out 0.3s backwards;
-        }
-
-        .btn {
+        .hero-kicker {
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            padding: 14px 36px;
-            border-radius: 50px;
-            font-size: 0.95rem;
-            font-weight: 800;
+            font-size: .7rem;
+            font-weight: 600;
+            letter-spacing: .14em;
             text-transform: uppercase;
-            letter-spacing: 1.5px;
-            text-decoration: none;
-            cursor: pointer;
-            border: none;
-            transition: all 0.3s;
+            color: var(--gold-2);
+            margin-bottom: 20px;
         }
 
-        .btn-gold {
-            background: linear-gradient(135deg, var(--gold-bright), var(--gold-dark));
-            color: var(--navy);
-            box-shadow: 0 4px 25px rgba(212,175,55,0.4);
+        .hero-kicker::before {
+            content: '';
+            width: 24px;
+            height: 1px;
+            background: var(--gold);
         }
 
-        .btn-gold:hover {
-            transform: translateY(-3px) scale(1.03);
-            box-shadow: 0 8px 35px rgba(212,175,55,0.6);
+        .hero h1 {
+            font-family: var(--display);
+            font-size: clamp(2.8rem, 6vw, 4.8rem);
+            font-weight: 700;
+            line-height: 1.02;
+            letter-spacing: .02em;
+            text-transform: uppercase;
+            margin-bottom: 18px;
         }
 
-        .btn-outline {
-            background: transparent;
-            color: var(--white);
-            border: 2px solid rgba(255,255,255,0.4);
+        .hero h1 span { color: var(--gold-2); }
+
+        .hero-lead {
+            font-size: 1.05rem;
+            color: var(--text-2);
+            max-width: 440px;
+            margin-bottom: 28px;
+            line-height: 1.75;
         }
 
-        .btn-outline:hover {
-            border-color: var(--gold);
-            color: var(--gold-bright);
-            background: rgba(212,175,55,0.1);
-        }
+        .hero-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 24px; }
 
-        .ca-bar {
-            margin-top: 32px;
+        .ca-strip {
             display: inline-flex;
             align-items: center;
-            gap: 12px;
-            background: rgba(0,0,0,0.4);
-            border: 1px solid rgba(212,175,55,0.3);
-            border-radius: 12px;
-            padding: 10px 20px;
-            font-size: 0.85rem;
-            animation: fadeUp 0.8s ease-out 0.4s backwards;
-        }
-
-        .ca-bar span {
-            color: var(--gold);
-            font-weight: 700;
-            letter-spacing: 1px;
-        }
-
-        .ca-bar code {
-            font-family: 'Inter', monospace;
-            color: rgba(255,255,255,0.8);
-            font-size: 0.8rem;
-            word-break: break-all;
-        }
-
-        .copy-btn {
-            background: rgba(212,175,55,0.2);
-            border: 1px solid var(--gold);
-            color: var(--gold-bright);
-            padding: 6px 14px;
-            border-radius: 8px;
-            font-size: 0.75rem;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.3s;
-            white-space: nowrap;
-        }
-
-        .copy-btn:hover {
-            background: var(--gold);
-            color: var(--navy);
-        }
-
-        .scroll-hint {
-            position: absolute;
-            bottom: 30px;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 3;
-            animation: bounce 2s infinite;
-        }
-
-        .scroll-hint svg {
-            width: 32px;
-            height: 32px;
-            fill: rgba(255,255,255,0.6);
-        }
-
-        @keyframes fadeUp {
-            from { opacity: 0; transform: translateY(25px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        @keyframes bounce {
-            0%, 100% { transform: translateX(-50%) translateY(0); }
-            50% { transform: translateX(-50%) translateY(-12px); }
-        }
-
-        /* ── Sections shared ── */
-        section {
-            position: relative;
-            padding: 100px 24px;
-        }
-
-        .section-inner {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .section-label {
-            display: inline-block;
-            font-size: 0.75rem;
-            font-weight: 700;
-            letter-spacing: 4px;
-            text-transform: uppercase;
-            color: var(--gold);
-            margin-bottom: 12px;
-        }
-
-        .section-title {
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: clamp(2.5rem, 6vw, 4.5rem);
-            letter-spacing: 3px;
-            line-height: 1.1;
-            margin-bottom: 16px;
-        }
-
-        .section-desc {
-            font-size: 1.1rem;
-            line-height: 1.7;
-            opacity: 0.85;
-            max-width: 700px;
-        }
-
-        .section-desc.center {
-            margin: 0 auto 48px;
-            text-align: center;
-        }
-
-        /* ── About ── */
-        #about {
-            background: rgba(15, 74, 38, 0.55);
-            overflow: hidden;
-        }
-
-        #about::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background:
-                repeating-linear-gradient(0deg, transparent, transparent 60px, rgba(255,255,255,0.03) 60px, rgba(255,255,255,0.03) 120px);
-            pointer-events: none;
-        }
-
-        .about-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 60px;
-            align-items: center;
-            position: relative;
-            z-index: 1;
-        }
-
-        .about-visual {
-            position: relative;
-            display: flex;
-            justify-content: center;
-        }
-
-        .about-visual img {
-            width: 100%;
-            max-width: 420px;
-            border-radius: 20px;
-            border: 3px solid rgba(212,175,55,0.4);
-            box-shadow: 0 20px 60px rgba(0,0,0,0.4);
-        }
-
-        .about-visual::after {
-            content: '';
-            position: absolute;
-            inset: -20px;
-            border: 2px solid rgba(212,175,55,0.15);
-            border-radius: 30px;
-            pointer-events: none;
-        }
-
-        .about-stats {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 16px;
-            margin-top: 32px;
-        }
-
-        .stat-card {
-            background: rgba(11,29,58,0.5);
-            border: 1px solid rgba(212,175,55,0.2);
-            border-radius: 16px;
-            padding: 20px 16px;
-            text-align: center;
+            gap: 10px;
+            padding: 10px 14px;
+            background: rgba(0,0,0,.35);
+            border: 1px solid var(--line);
+            border-radius: var(--radius);
             backdrop-filter: blur(8px);
         }
 
-        .stat-card .stat-icon {
-            font-size: 1.8rem;
-            margin-bottom: 8px;
+        .ca-strip label {
+            font-size: .65rem;
+            font-weight: 700;
+            letter-spacing: .1em;
+            color: var(--gold);
         }
 
-        .stat-card h4 {
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: 1.1rem;
-            letter-spacing: 2px;
-            color: var(--gold-bright);
-            margin-bottom: 4px;
+        .ca-strip code {
+            font-size: .8rem;
+            color: var(--text-2);
+            font-family: ui-monospace, monospace;
         }
 
-        .stat-card p {
-            font-size: 0.8rem;
-            opacity: 0.7;
+        .ca-strip button {
+            background: rgba(212,175,55,.12);
+            border: 1px solid var(--line-gold);
+            color: var(--gold-2);
+            font-size: .7rem;
+            font-weight: 600;
+            padding: 5px 10px;
+            border-radius: 6px;
+            cursor: pointer;
         }
 
-        .about-text p {
-            font-size: 1.05rem;
-            line-height: 1.8;
-            margin-bottom: 16px;
-            opacity: 0.9;
-        }
-
-        /* ── How to Buy ── */
-        #howtobuy {
-            background: rgba(11, 29, 58, 0.65);
-        }
-
-        .steps-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 24px;
-            margin-top: 48px;
-        }
-
-        .step-card {
-            background: var(--glass);
-            border: 1px solid rgba(212,175,55,0.2);
-            border-radius: 20px;
-            padding: 32px 24px;
-            text-align: center;
-            backdrop-filter: blur(12px);
-            transition: transform 0.3s, border-color 0.3s;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .step-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background: linear-gradient(90deg, var(--gold-dark), var(--gold-bright), var(--gold-dark));
-        }
-
-        .step-card:hover {
-            transform: translateY(-6px);
-            border-color: rgba(212,175,55,0.5);
-        }
-
-        .step-num {
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: 3rem;
-            color: rgba(212,175,55,0.25);
-            line-height: 1;
-            margin-bottom: 8px;
-        }
-
-        .step-card h3 {
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: 1.4rem;
-            letter-spacing: 2px;
-            color: var(--gold-bright);
-            margin-bottom: 12px;
-        }
-
-        .step-card p {
-            font-size: 0.9rem;
-            line-height: 1.6;
-            opacity: 0.8;
-        }
-
-        .howtobuy-cta {
-            text-align: center;
-            margin-top: 48px;
-        }
-
-        /* ── Betting ── */
-        #betting {
-            background: rgba(11, 29, 58, 0.72);
-            text-align: center;
-        }
-
-        .betting-filters {
+        .hero-art {
             display: flex;
             justify-content: center;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-bottom: 32px;
-        }
-
-        .filter-btn {
-            background: rgba(255,255,255,0.06);
-            border: 1px solid rgba(212,175,55,0.25);
-            color: rgba(255,255,255,0.8);
-            padding: 8px 18px;
-            border-radius: 50px;
-            font-size: 0.75rem;
-            font-weight: 700;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .filter-btn:hover,
-        .filter-btn.active {
-            background: rgba(212,175,55,0.2);
-            border-color: var(--gold);
-            color: var(--gold-bright);
-        }
-
-        .betting-layout {
-            display: grid;
-            grid-template-columns: 1fr 320px;
-            gap: 28px;
-            text-align: left;
-            margin-top: 8px;
-        }
-
-        .countries-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-            gap: 12px;
-        }
-
-        .country-card {
-            background: rgba(11,29,58,0.6);
-            border: 1px solid rgba(212,175,55,0.15);
-            border-radius: 14px;
-            padding: 14px 10px;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.25s;
             position: relative;
         }
 
-        .country-card:hover {
-            border-color: rgba(212,175,55,0.5);
-            transform: translateY(-3px);
-            box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+        .hero-art img {
+            width: min(100%, 380px);
+            filter: drop-shadow(0 40px 80px rgba(0,0,0,.55));
         }
 
-        .country-card.selected {
-            border-color: var(--gold-bright);
-            background: rgba(212,175,55,0.15);
-            box-shadow: 0 0 20px rgba(212,175,55,0.25);
-        }
-
-        .country-card .flag {
-            font-size: 2rem;
-            line-height: 1;
-            margin-bottom: 6px;
-        }
-
-        .country-card .name {
-            font-size: 0.75rem;
-            font-weight: 700;
-            letter-spacing: 0.5px;
-            margin-bottom: 4px;
-        }
-
-        .country-card .odds {
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: 1.1rem;
-            color: var(--gold-bright);
-            letter-spacing: 1px;
-        }
-
-        .country-card .pool {
-            font-size: 0.65rem;
-            opacity: 0.55;
-            margin-top: 2px;
-        }
-
-        .bet-slip {
-            background: var(--glass);
-            border: 1px solid rgba(212,175,55,0.3);
-            border-radius: 20px;
-            padding: 24px;
-            backdrop-filter: blur(12px);
-            position: sticky;
-            top: 120px;
-            height: fit-content;
-        }
-
-        .bet-slip h3 {
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: 1.5rem;
-            letter-spacing: 2px;
-            color: var(--gold-bright);
-            margin-bottom: 16px;
-            text-align: center;
-        }
-
-        .bet-slip-selected {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            background: rgba(0,0,0,0.3);
-            border-radius: 12px;
-            padding: 14px;
-            margin-bottom: 16px;
-            min-height: 60px;
-        }
-
-        .bet-slip-selected .flag {
-            font-size: 2.2rem;
-        }
-
-        .bet-slip-selected .info .name {
-            font-weight: 700;
-            font-size: 1rem;
-        }
-
-        .bet-slip-selected .info .odds {
-            font-size: 0.8rem;
-            color: var(--gold);
-        }
-
-        .bet-slip-placeholder {
-            color: rgba(255,255,255,0.45);
-            font-size: 0.85rem;
-            text-align: center;
-            width: 100%;
-        }
-
-        .bet-amount-label {
-            font-size: 0.75rem;
-            font-weight: 700;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            color: rgba(255,255,255,0.6);
-            margin-bottom: 8px;
-        }
-
-        .bet-amount-input {
-            width: 100%;
-            background: rgba(0,0,0,0.35);
-            border: 1px solid rgba(212,175,55,0.3);
-            border-radius: 10px;
-            padding: 12px 14px;
-            color: var(--white);
-            font-size: 1rem;
-            font-weight: 600;
-            margin-bottom: 12px;
-            outline: none;
-        }
-
-        .bet-amount-input:focus {
-            border-color: var(--gold);
-        }
-
-        .bet-quick-amounts {
-            display: flex;
-            gap: 8px;
-            margin-bottom: 16px;
-        }
-
-        .quick-amt {
-            flex: 1;
-            background: rgba(212,175,55,0.1);
-            border: 1px solid rgba(212,175,55,0.25);
-            color: var(--gold-bright);
-            padding: 6px;
-            border-radius: 8px;
-            font-size: 0.7rem;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-
-        .quick-amt:hover {
-            background: rgba(212,175,55,0.25);
-        }
-
-        .bet-payout {
-            display: flex;
-            justify-content: space-between;
-            font-size: 0.85rem;
-            margin-bottom: 16px;
-            padding: 10px 0;
-            border-top: 1px solid rgba(255,255,255,0.1);
-        }
-
-        .bet-payout .payout-val {
-            font-weight: 800;
-            color: #4ade80;
-        }
-
-        .bet-place {
-            width: 100%;
-            margin-bottom: 12px;
-        }
-
-        .bet-place:disabled {
-            opacity: 0.4;
-            cursor: not-allowed;
-            transform: none !important;
-        }
-
-        .bet-disclaimer {
-            font-size: 0.65rem;
-            opacity: 0.45;
-            text-align: center;
-            line-height: 1.4;
-        }
-
-        .betting-leaderboard {
-            margin-top: 40px;
-            text-align: left;
-        }
-
-        .betting-leaderboard h3 {
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: 1.4rem;
-            letter-spacing: 2px;
-            color: var(--gold-bright);
-            margin-bottom: 16px;
-            text-align: center;
-        }
-
-        .leaderboard-list {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 10px;
-        }
-
-        .leaderboard-item {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            background: rgba(11,29,58,0.5);
-            border: 1px solid rgba(212,175,55,0.12);
-            border-radius: 10px;
-            padding: 10px 14px;
-        }
-
-        .leaderboard-item .rank {
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: 1.2rem;
-            color: var(--gold);
-            min-width: 24px;
-        }
-
-        .leaderboard-item .flag { font-size: 1.4rem; }
-
-        .leaderboard-item .bar-wrap {
-            flex: 1;
-        }
-
-        .leaderboard-item .bar-label {
-            display: flex;
-            justify-content: space-between;
-            font-size: 0.7rem;
-            margin-bottom: 4px;
-        }
-
-        .leaderboard-item .bar {
-            height: 6px;
-            background: rgba(255,255,255,0.1);
-            border-radius: 3px;
-            overflow: hidden;
-        }
-
-        .leaderboard-item .bar-fill {
-            height: 100%;
-            background: linear-gradient(90deg, var(--gold-dark), var(--gold-bright));
-            border-radius: 3px;
-            transition: width 0.5s ease;
-        }
-
-        .bet-toast {
-            position: fixed;
-            bottom: 30px;
-            left: 50%;
-            transform: translateX(-50%) translateY(80px);
-            background: linear-gradient(135deg, var(--gold-bright), var(--gold-dark));
-            color: var(--navy);
-            padding: 14px 28px;
-            border-radius: 50px;
-            font-weight: 800;
-            font-size: 0.9rem;
-            z-index: 2000;
-            opacity: 0;
-            transition: all 0.4s;
-            pointer-events: none;
-        }
-
-        .bet-toast.show {
-            opacity: 1;
-            transform: translateX(-50%) translateY(0);
-        }
-
-        /* ── Chart ── */
-        #chart {
-            background: rgba(11, 29, 58, 0.7);
-            text-align: center;
-        }
-
-        .chart-wrapper {
-            margin-top: 40px;
-            border-radius: 20px;
-            overflow: hidden;
-            border: 2px solid rgba(212,175,55,0.3);
-            box-shadow: 0 20px 60px rgba(0,0,0,0.4);
-            background: #0d1117;
-        }
-
-        .chart-wrapper iframe {
-            width: 100%;
-            height: 600px;
-            border: none;
-            display: block;
-        }
-
-        .chart-link {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            margin-top: 24px;
-            color: var(--gold);
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 0.9rem;
-            transition: color 0.3s;
-        }
-
-        .chart-link:hover {
-            color: var(--gold-bright);
-        }
-
-        /* ── Join Us ── */
-        #joinus {
-            background: rgba(15, 74, 38, 0.5);
-            text-align: center;
-            overflow: hidden;
-        }
-
-        #joinus::before {
+        .hero-art::after {
             content: '';
             position: absolute;
+            width: 280px;
+            height: 280px;
+            background: radial-gradient(circle, rgba(212,175,55,.15), transparent 70%);
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 600px;
-            height: 600px;
-            background: radial-gradient(circle, rgba(212,175,55,0.08) 0%, transparent 70%);
+            z-index: -1;
+        }
+
+        /* ─── TICKER ─── */
+        .ticker {
+            border-block: 1px solid var(--line);
+            background: rgba(12, 18, 32, 0.65);
+            backdrop-filter: blur(8px);
+            overflow: hidden;
+            padding: 14px 0;
+        }
+
+        .ticker-track {
+            display: flex;
+            gap: 48px;
+            animation: ticker 30s linear infinite;
+            width: max-content;
+        }
+
+        .ticker-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: .75rem;
+            font-weight: 600;
+            letter-spacing: .08em;
+            text-transform: uppercase;
+            color: var(--text-2);
+            white-space: nowrap;
+        }
+
+        .ticker-item b { color: var(--gold-2); font-weight: 700; }
+
+        @keyframes ticker {
+            from { transform: translateX(0); }
+            to { transform: translateX(-50%); }
+        }
+
+        /* ─── SECTIONS ─── */
+        .section {
+            padding: 96px 0;
+        }
+
+        .section + .section { border-top: 1px solid var(--line); }
+
+        .sec-head { margin-bottom: 48px; }
+        .sec-head.center { text-align: center; }
+        .sec-head.center p { margin-inline: auto; }
+
+        .sec-label {
+            font-size: .68rem;
+            font-weight: 700;
+            letter-spacing: .16em;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 12px;
+        }
+
+        .sec-title {
+            font-family: var(--display);
+            font-size: clamp(1.8rem, 4vw, 2.8rem);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: .03em;
+            line-height: 1.1;
+            margin-bottom: 12px;
+        }
+
+        .sec-desc {
+            font-size: .95rem;
+            color: var(--text-2);
+            max-width: 520px;
+            line-height: 1.7;
+        }
+
+        /* ─── ABOUT ─── */
+        .about-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 56px;
+            align-items: center;
+        }
+
+        .about-copy p {
+            color: var(--text-2);
+            font-size: .92rem;
+            margin-bottom: 14px;
+            line-height: 1.8;
+        }
+
+        .pillars {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-top: 28px;
+        }
+
+        .pillar {
+            padding: 20px 16px;
+            background: var(--bg-card);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--line);
+            border-radius: var(--radius);
+            text-align: center;
+        }
+
+        .pillar strong {
+            display: block;
+            font-family: var(--display);
+            font-size: 1.2rem;
+            color: var(--gold-2);
+            margin-bottom: 4px;
+            letter-spacing: .04em;
+        }
+
+        .pillar span { font-size: .72rem; color: var(--text-3); }
+
+        .about-visual img {
+            border-radius: 16px;
+            border: 1px solid var(--line-gold);
+            box-shadow: 0 32px 64px rgba(0,0,0,.4);
+        }
+
+        /* ─── BETTING ─── */
+        .bet-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .filters { display: flex; flex-wrap: wrap; gap: 6px; }
+
+        .fbtn {
+            padding: 7px 14px;
+            border-radius: 6px;
+            border: 1px solid var(--line);
+            background: transparent;
+            color: var(--text-2);
+            font-size: .72rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all .2s;
+        }
+
+        .fbtn:hover, .fbtn.on {
+            color: var(--gold-2);
+            border-color: var(--line-gold);
+            background: rgba(212,175,55,.06);
+        }
+
+        .search-box {
+            padding: 9px 14px;
+            border-radius: 8px;
+            border: 1px solid var(--line);
+            background: var(--bg-card);
+            color: var(--text);
+            font-size: .82rem;
+            width: 200px;
+            outline: none;
+        }
+
+        .search-box:focus { border-color: var(--line-gold); }
+        .search-box::placeholder { color: var(--text-3); }
+
+        .bet-grid-layout {
+            display: grid;
+            grid-template-columns: 1fr 280px;
+            gap: 20px;
+            align-items: start;
+        }
+
+        .nations {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(128px, 1fr));
+            gap: 8px;
+        }
+
+        .nation {
+            background: var(--bg-card);
+            backdrop-filter: blur(8px);
+            border: 1px solid var(--line);
+            border-radius: 10px;
+            padding: 12px 8px;
+            text-align: center;
+            cursor: pointer;
+            transition: border-color .15s, transform .15s;
+        }
+
+        .nation:hover { border-color: var(--line-gold); transform: translateY(-1px); }
+        .nation.on { border-color: var(--gold); background: rgba(212,175,55,.06); }
+
+        .nation img {
+            width: 32px;
+            height: 22px;
+            object-fit: cover;
+            border-radius: 2px;
+            margin: 0 auto 8px;
+        }
+
+        .nation .n { font-size: .7rem; font-weight: 600; margin-bottom: 3px; }
+        .nation .o {
+            font-family: var(--display);
+            font-size: .95rem;
+            color: var(--gold-2);
+        }
+
+        .nation .m { font-size: .6rem; color: var(--text-3); margin-top: 2px; }
+
+        .slip {
+            background: var(--bg-card);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--line-gold);
+            border-radius: var(--radius);
+            padding: 20px;
+            position: sticky;
+            top: calc(var(--header) + 16px);
+        }
+
+        .slip h4 {
+            font-family: var(--display);
+            font-size: .9rem;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+            color: var(--gold-2);
+            padding-bottom: 14px;
+            margin-bottom: 14px;
+            border-bottom: 1px solid var(--line);
+        }
+
+        .slip-pick {
+            min-height: 56px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px;
+            background: rgba(0,0,0,.25);
+            border-radius: 8px;
+            margin-bottom: 16px;
+        }
+
+        .slip-pick img { width: 36px; height: 24px; border-radius: 2px; object-fit: cover; }
+        .slip-pick .ph { font-size: .8rem; color: var(--text-3); width: 100%; text-align: center; }
+        .slip-pick .nm { font-weight: 600; font-size: .85rem; }
+        .slip-pick .od { font-size: .75rem; color: var(--gold); }
+
+        .fld { font-size: .65rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--text-3); margin-bottom: 6px; }
+
+        .inp {
+            width: 100%;
+            padding: 10px 12px;
+            border-radius: 8px;
+            border: 1px solid var(--line);
+            background: rgba(0,0,0,.2);
+            color: var(--text);
+            font-size: .9rem;
+            margin-bottom: 10px;
+            outline: none;
+        }
+
+        .inp:focus { border-color: var(--line-gold); }
+
+        .chips { display: grid; grid-template-columns: repeat(4,1fr); gap: 5px; margin-bottom: 14px; }
+
+        .chip {
+            padding: 6px;
+            border-radius: 6px;
+            border: 1px solid var(--line);
+            background: transparent;
+            color: var(--text-2);
+            font-size: .65rem;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .chip:hover { border-color: var(--line-gold); color: var(--gold-2); }
+
+        .ret-row {
+            display: flex;
+            justify-content: space-between;
+            font-size: .8rem;
+            padding: 12px 0;
+            border-top: 1px solid var(--line);
+            margin-bottom: 12px;
+        }
+
+        .ret-row b { color: var(--green); }
+
+        .slip-note { font-size: .62rem; color: var(--text-3); text-align: center; line-height: 1.5; margin-top: 10px; }
+
+        .lb { margin-top: 40px; padding-top: 32px; border-top: 1px solid var(--line); }
+        .lb h5 {
+            font-family: var(--display);
+            font-size: .85rem;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+            color: var(--text-3);
+            text-align: center;
+            margin-bottom: 16px;
+        }
+
+        .lb-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 8px;
+        }
+
+        .lb-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 12px;
+            background: var(--bg-card);
+            border: 1px solid var(--line);
+            border-radius: 8px;
+        }
+
+        .lb-row .rk { font-family: var(--display); color: var(--gold); font-size: .85rem; min-width: 22px; }
+        .lb-row img { width: 26px; height: 18px; border-radius: 2px; object-fit: cover; }
+        .lb-row .bw { flex: 1; min-width: 0; }
+        .lb-row .bt { display: flex; justify-content: space-between; font-size: .68rem; margin-bottom: 4px; }
+        .lb-row .bt span:first-child { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        .lb-row .bar { height: 3px; background: rgba(255,255,255,.06); border-radius: 2px; overflow: hidden; }
+        .lb-row .fill { height: 100%; background: linear-gradient(90deg, var(--gold-dim), var(--gold-2)); }
+
+        /* ─── STEPS ─── */
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 14px;
+        }
+
+        .step {
+            padding: 24px 20px;
+            background: var(--bg-card);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--line);
+            border-radius: var(--radius);
+        }
+
+        .step i {
+            font-family: var(--display);
+            font-size: 2rem;
+            font-style: normal;
+            color: rgba(212,175,55,.2);
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .step h3 {
+            font-family: var(--display);
+            font-size: .95rem;
+            text-transform: uppercase;
+            letter-spacing: .04em;
+            margin-bottom: 8px;
+        }
+
+        .step p { font-size: .8rem; color: var(--text-2); line-height: 1.65; }
+
+        .center-cta { text-align: center; margin-top: 36px; }
+
+        /* ─── CHART ─── */
+        .chart-box {
+            border-radius: var(--radius);
+            overflow: hidden;
+            border: 1px solid var(--line);
+            background: #0b0f17;
+        }
+
+        .chart-box iframe { width: 100%; height: 540px; border: none; display: block; }
+
+        .chart-link { text-align: center; margin-top: 18px; }
+        .chart-link a { font-size: .82rem; font-weight: 600; color: var(--gold); }
+        .chart-link a:hover { color: var(--gold-2); }
+
+        /* ─── JOIN ─── */
+        .join-banner {
+            border-radius: 16px;
+            border: 1px solid var(--line-gold);
+            margin-bottom: 36px;
+            box-shadow: 0 24px 64px rgba(0,0,0,.35);
+        }
+
+        .join-actions {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 28px;
+        }
+
+        .socials {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .soc {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 20px;
+            background: var(--bg-card);
+            border: 1px solid var(--line);
+            border-radius: var(--radius);
+            font-size: .82rem;
+            font-weight: 600;
+            transition: border-color .2s;
+        }
+
+        .soc:hover { border-color: var(--line-gold); }
+        .soc svg { width: 16px; height: 16px; fill: var(--gold-2); }
+
+        /* ─── FOOTER ─── */
+        footer {
+            border-top: 1px solid var(--line);
+            padding: 48px 24px 32px;
+            background: rgba(4,6,10,.95);
+        }
+
+        .foot-grid {
+            width: min(var(--max), 100%);
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 24px;
+            align-items: center;
+        }
+
+        .foot-brand { display: flex; align-items: center; gap: 10px; }
+        .foot-brand img { width: 30px; border-radius: 6px; }
+        .foot-brand span { font-family: var(--display); font-weight: 600; letter-spacing: .06em; text-transform: uppercase; }
+
+        .foot-nav { display: flex; gap: 20px; flex-wrap: wrap; }
+        .foot-nav a { font-size: .78rem; color: var(--text-3); transition: color .2s; }
+        .foot-nav a:hover { color: var(--text); }
+
+        .foot-copy {
+            grid-column: 1 / -1;
+            text-align: center;
+            font-size: .7rem;
+            color: var(--text-3);
+            padding-top: 24px;
+            margin-top: 8px;
+            border-top: 1px solid var(--line);
+        }
+
+        /* ─── TOAST ─── */
+        .toast {
+            position: fixed;
+            bottom: 24px;
+            left: 50%;
+            transform: translateX(-50%) translateY(50px);
+            padding: 12px 22px;
+            background: var(--bg-card);
+            border: 1px solid var(--line-gold);
+            border-radius: 8px;
+            font-size: .82rem;
+            font-weight: 500;
+            z-index: 2000;
+            opacity: 0;
+            transition: all .3s;
             pointer-events: none;
         }
 
-        .joinus-banner {
-            width: 100%;
-            max-width: 1000px;
-            border-radius: 20px;
-            box-shadow: 0 25px 70px rgba(0,0,0,0.5);
-            margin: 0 auto 40px;
-            position: relative;
-            z-index: 1;
-            border: 3px solid rgba(212,175,55,0.3);
+        .toast.on { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+        /* ─── REVEAL ─── */
+        .reveal { opacity: 0; transform: translateY(20px); transition: opacity .5s, transform .5s; }
+        .reveal.in { opacity: 1; transform: none; }
+
+        /* ─── MOBILE ─── */
+        @media (max-width: 960px) {
+            .hero-grid, .about-layout { grid-template-columns: 1fr; text-align: center; }
+            .hero-lead { margin-inline: auto; }
+            .hero-actions, .ca-strip { justify-content: center; }
+            .hero-art { order: -1; }
+            .hero-art img { width: min(260px, 65vw); }
+            .steps { grid-template-columns: repeat(2, 1fr); }
+            .bet-grid-layout { grid-template-columns: 1fr; }
+            .slip { position: static; }
+            .pillars { grid-template-columns: 1fr; }
         }
 
-        .joinus-content {
-            position: relative;
-            z-index: 1;
-        }
-
-        .joinus-content .section-desc {
-            margin: 0 auto 36px;
-        }
-
-        .social-row {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            flex-wrap: wrap;
-            margin-top: 32px;
-        }
-
-        .social-card {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            background: rgba(255,255,255,0.06);
-            border: 1px solid rgba(212,175,55,0.25);
-            border-radius: 16px;
-            padding: 16px 28px;
-            text-decoration: none;
-            color: var(--white);
-            transition: all 0.3s;
-        }
-
-        .social-card:hover {
-            background: rgba(212,175,55,0.15);
-            border-color: var(--gold);
-            transform: translateY(-3px);
-        }
-
-        .social-card svg {
-            width: 22px;
-            height: 22px;
-            fill: var(--gold-bright);
-        }
-
-        .social-card span {
-            font-weight: 700;
-            font-size: 0.9rem;
-            letter-spacing: 1px;
-        }
-
-        /* ── Footer ── */
-        footer {
-            background: rgba(6, 15, 31, 0.85);
-            padding: 32px 24px;
-            text-align: center;
-            border-top: 1px solid rgba(212,175,55,0.15);
-        }
-
-        footer p {
-            font-size: 0.8rem;
-            opacity: 0.5;
-            letter-spacing: 1px;
-        }
-
-        /* ── Mobile ── */
-        @media (max-width: 900px) {
-            nav {
+        @media (max-width: 720px) {
+            :root { --header: 64px; }
+            .topbar { grid-template-columns: auto 1fr auto; gap: 12px; padding: 0 16px; }
+            .nav {
                 display: none;
                 position: absolute;
                 top: 100%;
-                left: 0;
-                right: 0;
+                left: 0; right: 0;
                 flex-direction: column;
-                background: rgba(11,29,58,0.98);
-                padding: 20px;
-                gap: 16px;
-                border-bottom: 1px solid rgba(212,175,55,0.2);
+                background: rgba(5,8,15,.98);
+                padding: 12px;
+                border-bottom: 1px solid var(--line);
             }
-
-            nav.open {
-                display: flex;
-            }
-
-            .menu-toggle {
-                display: block;
-            }
-
-            .about-grid {
-                grid-template-columns: 1fr;
-                gap: 40px;
-            }
-
-            .about-stats {
-                grid-template-columns: 1fr;
-            }
-
-            .chart-wrapper iframe {
-                height: 450px;
-            }
-
-            .ca-bar {
-                flex-direction: column;
-                text-align: center;
-            }
-
-            header {
-                padding: 12px 16px;
-            }
-
-            .countdown-bar {
-                gap: 8px;
-                padding: 6px 12px;
-            }
-
-            .countdown-label {
-                font-size: 0.75rem;
-                width: 100%;
-                text-align: center;
-            }
-
-            .countdown-unit .num {
-                font-size: 1.1rem;
-                min-width: 36px;
-                padding: 3px 6px;
-            }
-
-            header {
-                top: 72px;
-            }
-
-            .betting-layout {
-                grid-template-columns: 1fr;
-            }
-
-            .bet-slip {
-                position: static;
-            }
-
-            .countries-grid {
-                grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
-            }
+            .nav.open { display: flex; }
+            .nav a { padding: 12px 16px; }
+            .burger { display: block; }
+            .countdown-tag { display: none; }
+            .steps { grid-template-columns: 1fr; }
+            .foot-grid { grid-template-columns: 1fr; text-align: center; justify-items: center; }
+            .chart-box iframe { height: 400px; }
         }
     </style>
 </head>
 <body>
 
-    <div class="countdown-bar" id="countdownBar">
-        <span class="countdown-label">⚽ FIFA WORLD CUP 2026 KICKOFF</span>
-        <div class="countdown-timer" id="countdownTimer">
-            <div class="countdown-unit"><span class="num" id="cdDays">00</span><span class="lbl">Days</span></div>
-            <span class="countdown-sep">:</span>
-            <div class="countdown-unit"><span class="num" id="cdHours">00</span><span class="lbl">Hours</span></div>
-            <span class="countdown-sep">:</span>
-            <div class="countdown-unit"><span class="num" id="cdMins">00</span><span class="lbl">Mins</span></div>
-            <span class="countdown-sep">:</span>
-            <div class="countdown-unit"><span class="num" id="cdSecs">00</span><span class="lbl">Secs</span></div>
+<div class="site-bg" aria-hidden="true">
+    <div class="site-bg-image"></div>
+    <div class="site-bg-overlay"></div>
+</div>
+
+<header class="topbar" id="topbar">
+    <a href="#hero" class="logo-link">
+        <img src="logo.png" alt="FIFA 26">
+        <strong>FIFA <em>26</em></strong>
+    </a>
+
+    <nav class="nav" id="nav">
+        <a href="#hero">Home</a>
+        <a href="#about">About</a>
+        <a href="#betting">Betting</a>
+        <a href="#howtobuy">How to Buy</a>
+        <a href="#chart">Chart</a>
+        <a href="#joinus">Join Us</a>
+    </nav>
+
+    <div class="topbar-right">
+        <div class="countdown" id="countdownWrap">
+            <span class="countdown-tag">WC 2026</span>
+            <div class="countdown-digits" id="cdDigits">
+                <span class="cd" id="cdD">00</span><span class="cd-u">d</span>
+                <span class="cd-dot">·</span>
+                <span class="cd" id="cdH">00</span><span class="cd-u">h</span>
+                <span class="cd-dot">·</span>
+                <span class="cd" id="cdM">00</span><span class="cd-u">m</span>
+                <span class="cd-dot">·</span>
+                <span class="cd" id="cdS">00</span><span class="cd-u">s</span>
+            </div>
+            <span class="countdown-live" id="cdLive">LIVE</span>
         </div>
-        <span class="countdown-live" id="countdownLive" style="display:none;">● LIVE</span>
-    </div>
-
-    <header id="header">
-        <a href="#hero" class="header-brand">
-            <img src="logo.png" alt="FIFA 26 Logo">
-            <span>FIFA 26</span>
+        <a href="https://x.com/fifa26coin" target="_blank" class="icon-link" aria-label="X">
+            <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
         </a>
+        <a href="https://swap.pump.fun/?output=pumppump" target="_blank" class="btn btn-gold" style="padding:9px 18px;font-size:.78rem">Buy</a>
+        <button class="burger" id="burger" aria-label="Menu"><span></span><span></span><span></span></button>
+    </div>
+</header>
 
-        <nav id="nav">
-            <a href="#hero">Home</a>
+<section class="hero" id="hero">
+    <video class="hero-video" autoplay muted loop playsinline>
+        <source src="video.mp4" type="video/mp4">
+    </video>
+    <div class="hero-shade"></div>
+
+    <div class="hero-grid">
+        <div>
+            <div class="hero-kicker">World Cup 2026 · Solana</div>
+            <h1>The World's Game.<br><span>On Chain.</span></h1>
+            <p class="hero-lead">FIFA 26 is the World Cup meme coin on Solana. Trade on PumpSwap, back your nation in our prediction pool, and join a global community of holders.</p>
+            <div class="hero-actions">
+                <a href="https://swap.pump.fun/?output=pumppump" target="_blank" class="btn btn-gold">Buy on PumpSwap</a>
+                <a href="#chart" class="btn btn-outline">Live Chart</a>
+            </div>
+            <div class="ca-strip">
+                <label>CA</label>
+                <code>pumppump</code>
+                <button type="button" id="copyCa">Copy</button>
+            </div>
+        </div>
+        <div class="hero-art">
+            <img src="logo.png" alt="FIFA 26">
+        </div>
+    </div>
+</section>
+
+<div class="ticker">
+    <div class="ticker-track">
+        <span class="ticker-item"><b>48</b> Nations Qualified</span>
+        <span class="ticker-item"><b>Solana</b> Network</span>
+        <span class="ticker-item"><b>PumpSwap</b> Trading</span>
+        <span class="ticker-item"><b>DexScreener</b> Live Chart</span>
+        <span class="ticker-item"><b>World Cup</b> June 11, 2026</span>
+        <span class="ticker-item"><b>@fifa26coin</b> on X</span>
+        <span class="ticker-item"><b>48</b> Nations Qualified</span>
+        <span class="ticker-item"><b>Solana</b> Network</span>
+        <span class="ticker-item"><b>PumpSwap</b> Trading</span>
+        <span class="ticker-item"><b>DexScreener</b> Live Chart</span>
+        <span class="ticker-item"><b>World Cup</b> June 11, 2026</span>
+        <span class="ticker-item"><b>@fifa26coin</b> on X</span>
+    </div>
+</div>
+
+<section class="section" id="about">
+    <div class="wrap reveal">
+        <div class="about-layout">
+            <div class="about-copy">
+                <div class="sec-head">
+                    <div class="sec-label">About</div>
+                    <h2 class="sec-title">Built for Football.<br>Powered by Solana.</h2>
+                </div>
+                <p>FIFA 26 brings the energy of the 2026 World Cup to the blockchain. Launched on Pump.fun, it's a community token for fans who want to trade, compete, and celebrate the biggest tournament on earth.</p>
+                <p>Fast transactions, zero friction, and a squad that grows with every match day.</p>
+                <div class="pillars">
+                    <div class="pillar"><strong>Solana</strong><span>Network</span></div>
+                    <div class="pillar"><strong>Pump.fun</strong><span>Launchpad</span></div>
+                    <div class="pillar"><strong>48</strong><span>Nations</span></div>
+                </div>
+            </div>
+            <div class="about-visual">
+                <img src="logo.png" alt="FIFA 26">
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section" id="betting">
+    <div class="wrap reveal">
+        <div class="sec-head center">
+            <div class="sec-label">Prediction Pool</div>
+            <h2 class="sec-title">Back Your Nation</h2>
+            <p class="sec-desc">All 48 World Cup 2026 qualifiers. Pick a winner, set your stake, and climb the leaderboard.</p>
+        </div>
+
+        <div class="bet-controls">
+            <div class="filters" id="filters">
+                <button class="fbtn on" data-c="all">All</button>
+                <button class="fbtn" data-c="UEFA">UEFA</button>
+                <button class="fbtn" data-c="CONMEBOL">CONMEBOL</button>
+                <button class="fbtn" data-c="CONCACAF">CONCACAF</button>
+                <button class="fbtn" data-c="CAF">CAF</button>
+                <button class="fbtn" data-c="AFC">AFC</button>
+                <button class="fbtn" data-c="OFC">OFC</button>
+            </div>
+            <input type="search" class="search-box" id="search" placeholder="Search nation…">
+        </div>
+
+        <div class="bet-grid-layout">
+            <div class="nations" id="nations"></div>
+            <aside class="slip">
+                <h4>Bet Slip</h4>
+                <div class="slip-pick" id="slipPick"><span class="ph">Select a nation</span></div>
+                <div class="fld">Stake (FIFA 26)</div>
+                <input class="inp" type="number" id="stake" value="1000" min="1">
+                <div class="chips">
+                    <button class="chip" data-v="500">500</button>
+                    <button class="chip" data-v="1000">1K</button>
+                    <button class="chip" data-v="5000">5K</button>
+                    <button class="chip" data-v="10000">10K</button>
+                </div>
+                <div class="ret-row"><span>Return</span><b id="retVal">—</b></div>
+                <button class="btn btn-gold" id="placeBet" style="width:100%" disabled>Place Bet</button>
+                <p class="slip-note">Community pool for entertainment. Saved locally in your browser.</p>
+            </aside>
+        </div>
+
+        <div class="lb">
+            <h5>Leaderboard</h5>
+            <div class="lb-list" id="lb"></div>
+        </div>
+    </div>
+</section>
+
+<section class="section" id="howtobuy">
+    <div class="wrap reveal">
+        <div class="sec-head center">
+            <div class="sec-label">How to Buy</div>
+            <h2 class="sec-title">Four Steps to FIFA 26</h2>
+            <p class="sec-desc">Purchase through PumpSwap on Solana in minutes.</p>
+        </div>
+        <div class="steps">
+            <div class="step"><i>01</i><h3>Wallet</h3><p>Install Phantom or Solflare and secure your recovery phrase.</p></div>
+            <div class="step"><i>02</i><h3>Fund SOL</h3><p>Buy SOL on any exchange and send it to your wallet.</p></div>
+            <div class="step"><i>03</i><h3>PumpSwap</h3><p>Connect your wallet and search FIFA 26 by contract address.</p></div>
+            <div class="step"><i>04</i><h3>Swap</h3><p>Swap SOL for FIFA 26 and confirm. You're on the team.</p></div>
+        </div>
+        <div class="center-cta">
+            <a href="https://swap.pump.fun/?output=pumppump" target="_blank" class="btn btn-gold">Open PumpSwap</a>
+        </div>
+    </div>
+</section>
+
+<section class="section" id="chart">
+    <div class="wrap reveal">
+        <div class="sec-head center">
+            <div class="sec-label">Market</div>
+            <h2 class="sec-title">Live Price Chart</h2>
+            <p class="sec-desc">Real-time data from DexScreener on Solana.</p>
+        </div>
+        <div class="chart-box">
+            <iframe src="https://dexscreener.com/solana/pumppump?embed=1&theme=dark&trades=0&info=0" title="Chart" allowfullscreen></iframe>
+        </div>
+        <div class="chart-link"><a href="https://dexscreener.com/solana/pumppump" target="_blank">Open on DexScreener →</a></div>
+    </div>
+</section>
+
+<section class="section" id="joinus">
+    <div class="wrap reveal" style="text-align:center">
+        <img src="banner.png" alt="FIFA 26" class="join-banner">
+        <div class="sec-head center">
+            <div class="sec-label">Community</div>
+            <h2 class="sec-title">Join the Squad</h2>
+            <p class="sec-desc">Follow, trade, and grow with the FIFA 26 community.</p>
+        </div>
+        <div class="join-actions">
+            <a href="https://swap.pump.fun/?output=pumppump" target="_blank" class="btn btn-gold">Buy FIFA 26</a>
+            <a href="https://x.com/fifa26coin" target="_blank" class="btn btn-outline">Follow @fifa26coin</a>
+        </div>
+        <div class="socials">
+            <a href="https://x.com/fifa26coin" target="_blank" class="soc">
+                <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                Twitter
+            </a>
+            <a href="https://dexscreener.com/solana/pumppump" target="_blank" class="soc">
+                <svg viewBox="0 0 24 24"><path d="M3 3h8v8H3V3zm10 0h8v8h-8V3zM3 13h8v8H3v-8zm10 0h8v8h-8v-8z"/></svg>
+                DexScreener
+            </a>
+            <a href="https://swap.pump.fun/?output=pumppump" target="_blank" class="soc">
+                <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+                PumpSwap
+            </a>
+        </div>
+    </div>
+</section>
+
+<footer>
+    <div class="foot-grid">
+        <div class="foot-brand">
+            <img src="logo.png" alt="">
+            <span>FIFA 26</span>
+        </div>
+        <nav class="foot-nav">
             <a href="#about">About</a>
             <a href="#betting">Betting</a>
-            <a href="#howtobuy">How to Buy</a>
+            <a href="#howtobuy">Buy</a>
             <a href="#chart">Chart</a>
-            <a href="#joinus">Join Us</a>
-            <a href="https://swap.pump.fun/?output=pumppump" target="_blank" class="nav-buy">Buy Now</a>
+            <a href="https://x.com/fifa26coin" target="_blank">Twitter</a>
         </nav>
+        <p class="foot-copy">© 2026 FIFA 26. Not affiliated with FIFA™.</p>
+    </div>
+</footer>
 
-        <div class="header-socials">
-            <a href="https://x.com/fifa26coin" target="_blank" title="X / Twitter">
-                <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-            </a>
-            <a href="https://dexscreener.com/solana/pumppump" target="_blank" title="DexScreener">
-                <svg viewBox="0 0 24 24"><path d="M3 3h8v8H3V3zm10 0h8v8h-8V3zM3 13h8v8H3v-8zm10 0h8v8h-8v-8z"/></svg>
-            </a>
-        </div>
+<div class="toast" id="toast"></div>
 
-        <button class="menu-toggle" id="menuToggle" aria-label="Menu">
-            <span></span><span></span><span></span>
-        </button>
-    </header>
+<script>
+const CA = 'pumppump';
+const KICKOFF = new Date('2026-06-11T19:00:00-06:00');
+const POOL_KEY = 'fifa26_bet_pool';
 
-    <!-- Hero -->
-    <section id="hero">
-        <video class="hero-video" autoplay muted loop playsinline>
-            <source src="video.mp4" type="video/mp4">
-        </video>
-        <div class="hero-overlay"></div>
-        <div class="hero-pitch-lines"></div>
+const TEAMS = [
+    {id:'arg',name:'Argentina',code:'ar',c:'CONMEBOL',o:5.5},{id:'fra',name:'France',code:'fr',c:'UEFA',o:6},
+    {id:'bra',name:'Brazil',code:'br',c:'CONMEBOL',o:7},{id:'eng',name:'England',code:'gb',c:'UEFA',o:8},
+    {id:'esp',name:'Spain',code:'es',c:'UEFA',o:8.5},{id:'ger',name:'Germany',code:'de',c:'UEFA',o:9},
+    {id:'por',name:'Portugal',code:'pt',c:'UEFA',o:10},{id:'ned',name:'Netherlands',code:'nl',c:'UEFA',o:12},
+    {id:'bel',name:'Belgium',code:'be',c:'UEFA',o:14},{id:'cro',name:'Croatia',code:'hr',c:'UEFA',o:18},
+    {id:'uru',name:'Uruguay',code:'uy',c:'CONMEBOL',o:20},{id:'col',name:'Colombia',code:'co',c:'CONMEBOL',o:22},
+    {id:'mex',name:'Mexico',code:'mx',c:'CONCACAF',o:25},{id:'usa',name:'United States',code:'us',c:'CONCACAF',o:28},
+    {id:'mar',name:'Morocco',code:'ma',c:'CAF',o:30},{id:'jpn',name:'Japan',code:'jp',c:'AFC',o:35},
+    {id:'kor',name:'South Korea',code:'kr',c:'AFC',o:40},{id:'sui',name:'Switzerland',code:'ch',c:'UEFA',o:42},
+    {id:'nor',name:'Norway',code:'no',c:'UEFA',o:45},{id:'ecu',name:'Ecuador',code:'ec',c:'CONMEBOL',o:50},
+    {id:'sen',name:'Senegal',code:'sn',c:'CAF',o:55},{id:'aus',name:'Australia',code:'au',c:'AFC',o:60},
+    {id:'can',name:'Canada',code:'ca',c:'CONCACAF',o:65},{id:'aut',name:'Austria',code:'at',c:'UEFA',o:70},
+    {id:'swe',name:'Sweden',code:'se',c:'UEFA',o:75},{id:'tur',name:'Türkiye',code:'tr',c:'UEFA',o:80},
+    {id:'cze',name:'Czechia',code:'cz',c:'UEFA',o:85},{id:'sco',name:'Scotland',code:'gb',c:'UEFA',o:90},
+    {id:'par',name:'Paraguay',code:'py',c:'CONMEBOL',o:95},{id:'egy',name:'Egypt',code:'eg',c:'CAF',o:100},
+    {id:'alg',name:'Algeria',code:'dz',c:'CAF',o:110},{id:'gha',name:'Ghana',code:'gh',c:'CAF',o:120},
+    {id:'tun',name:'Tunisia',code:'tn',c:'CAF',o:130},{id:'rsa',name:'South Africa',code:'za',c:'CAF',o:140},
+    {id:'cpv',name:'Cape Verde',code:'cv',c:'CAF',o:150},{id:'civ',name:'Ivory Coast',code:'ci',c:'CAF',o:160},
+    {id:'cod',name:'DR Congo',code:'cd',c:'CAF',o:170},{id:'irn',name:'Iran',code:'ir',c:'AFC',o:180},
+    {id:'ksa',name:'Saudi Arabia',code:'sa',c:'AFC',o:190},{id:'qat',name:'Qatar',code:'qa',c:'AFC',o:200},
+    {id:'jor',name:'Jordan',code:'jo',c:'AFC',o:220},{id:'uzb',name:'Uzbekistan',code:'uz',c:'AFC',o:250},
+    {id:'irq',name:'Iraq',code:'iq',c:'AFC',o:280},{id:'pan',name:'Panama',code:'pa',c:'CONCACAF',o:300},
+    {id:'hai',name:'Haiti',code:'ht',c:'CONCACAF',o:350},{id:'cuw',name:'Curaçao',code:'cw',c:'CONCACAF',o:400},
+    {id:'bih',name:'Bosnia & Herz.',code:'ba',c:'UEFA',o:420},{id:'nzl',name:'New Zealand',code:'nz',c:'OFC',o:500}
+];
 
-        <div class="hero-content">
-            <img src="logo.png" alt="FIFA 26" class="hero-logo">
-            <div class="hero-badge">⚽ World Cup Season 2026</div>
-            <h1 class="hero-title">FIFA <span class="gold">26</span></h1>
-            <p class="hero-tagline">The ultimate World Cup meme coin on Solana. Lace up, hit the pitch, and pump your way to glory.</p>
+const flag = c => `https://flagcdn.com/w80/${c}.png`;
+const pad = n => String(n).padStart(2,'0');
+const pool = () => { try { return JSON.parse(localStorage.getItem(POOL_KEY))||{}; } catch { return {}; } };
+const save = p => localStorage.setItem(POOL_KEY, JSON.stringify(p));
+const total = p => Object.values(p).reduce((a,b)=>a+b,0);
 
-            <div class="hero-buttons">
-                <a href="https://swap.pump.fun/?output=pumppump" target="_blank" class="btn btn-gold">⚽ Buy on PumpSwap</a>
-                <a href="#chart" class="btn btn-outline">📈 Live Chart</a>
-            </div>
+let pick = null, filt = 'all', q = '';
 
-            <div class="ca-bar">
-                <span>CA:</span>
-                <code id="caText">pumppump</code>
-                <button class="copy-btn" id="copyCa">Copy</button>
-            </div>
-        </div>
+function tick() {
+    const d = KICKOFF - Date.now();
+    const dig = document.getElementById('cdDigits');
+    const live = document.getElementById('cdLive');
+    if (d <= 0) { dig.style.display='none'; live.style.display='inline'; return; }
+    dig.style.display='flex'; live.style.display='none';
+    document.getElementById('cdD').textContent = pad(Math.floor(d/864e5));
+    document.getElementById('cdH').textContent = pad(Math.floor(d%864e5/36e5));
+    document.getElementById('cdM').textContent = pad(Math.floor(d%36e5/6e4));
+    document.getElementById('cdS').textContent = pad(Math.floor(d%6e4/1e3));
+}
+tick(); setInterval(tick, 1000);
 
-        <div class="scroll-hint">
-            <svg viewBox="0 0 24 24"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg>
-        </div>
-    </section>
+function renderNations() {
+    const p = pool(), t = total(p)||1;
+    const list = TEAMS.filter(x => (filt==='all'||x.c===filt) && x.name.toLowerCase().includes(q));
+    document.getElementById('nations').innerHTML = list.map(x => {
+        const b = p[x.id]||0;
+        const m = b>0 ? (b/t*100).toFixed(1)+'%' : x.c;
+        return `<div class="nation${pick?.id===x.id?' on':''}" data-id="${x.id}">
+            <img src="${flag(x.code)}" alt="${x.name}" loading="lazy">
+            <div class="n">${x.name}</div><div class="o">${x.o.toFixed(1)}x</div><div class="m">${m}</div></div>`;
+    }).join('');
+    document.querySelectorAll('.nation').forEach(el => el.onclick = () => select(el.dataset.id));
+}
 
-    <!-- About -->
-    <section id="about">
-        <div class="section-inner">
-            <div class="about-grid">
-                <div class="about-visual">
-                    <img src="logo.png" alt="FIFA 26 Token">
-                </div>
-                <div class="about-text">
-                    <span class="section-label">About</span>
-                    <h2 class="section-title">THE WORLD'S GAME,<br>ON THE BLOCKCHAIN</h2>
-                    <p>FIFA 26 is the meme coin built for football fans and crypto degens alike. Born on Pump.fun, fueled by World Cup energy, and ready to dominate the pitch.</p>
-                    <p>From the group stages to the final whistle — our community plays as one team. No offsides, no red cards, just pure pump energy on Solana.</p>
+function select(id) {
+    pick = TEAMS.find(t=>t.id===id);
+    document.getElementById('slipPick').innerHTML = `<img src="${flag(pick.code)}" alt=""><div><div class="nm">${pick.name}</div><div class="od">${pick.o.toFixed(1)}x</div></div>`;
+    document.getElementById('placeBet').disabled = false;
+    calcRet(); renderNations();
+}
 
-                    <div class="about-stats">
-                        <div class="stat-card">
-                            <div class="stat-icon">⚽</div>
-                            <h4>Solana</h4>
-                            <p>Lightning-fast trades</p>
-                        </div>
-                        <div class="stat-card">
-                            <div class="stat-icon">🏆</div>
-                            <h4>Pump.fun</h4>
-                            <p>Meme coin launchpad</p>
-                        </div>
-                        <div class="stat-card">
-                            <div class="stat-icon">🌍</div>
-                            <h4>World Cup</h4>
-                            <p>2026 season vibes</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+function calcRet() {
+    const v = +document.getElementById('stake').value||0;
+    document.getElementById('retVal').textContent = (!pick||v<=0) ? '—' : (v*pick.o).toLocaleString()+' FIFA 26';
+}
 
-    <!-- Betting -->
-    <section id="betting">
-        <div class="section-inner">
-            <span class="section-label">World Cup Betting</span>
-            <h2 class="section-title">PICK YOUR CHAMPION</h2>
-            <p class="section-desc center">Back any of the 48 World Cup nations. Place your FIFA 26 tokens on who lifts the trophy in USA, Mexico &amp; Canada.</p>
+function renderLb() {
+    const p = pool();
+    const s = TEAMS.map(t=>({...t,b:p[t.id]||0})).filter(t=>t.b>0).sort((a,b)=>b.b-a.b).slice(0,8);
+    const mx = s[0]?.b||1;
+    const el = document.getElementById('lb');
+    if (!s.length) { el.innerHTML='<p style="grid-column:1/-1;text-align:center;color:var(--text-3);font-size:.8rem">No bets yet.</p>'; return; }
+    el.innerHTML = s.map((t,i)=>`<div class="lb-row"><span class="rk">#${i+1}</span><img src="${flag(t.code)}" alt=""><div class="bw"><div class="bt"><span>${t.name}</span><span>${t.b.toLocaleString()}</span></div><div class="bar"><div class="fill" style="width:${(t.b/mx*100).toFixed(0)}%"></div></div></div></div>`).join('');
+}
 
-            <div class="betting-filters" id="betFilters">
-                <button class="filter-btn active" data-conf="all">All (48)</button>
-                <button class="filter-btn" data-conf="UEFA">UEFA</button>
-                <button class="filter-btn" data-conf="CONMEBOL">CONMEBOL</button>
-                <button class="filter-btn" data-conf="CONCACAF">CONCACAF</button>
-                <button class="filter-btn" data-conf="CAF">CAF</button>
-                <button class="filter-btn" data-conf="AFC">AFC</button>
-                <button class="filter-btn" data-conf="OFC">OFC</button>
-            </div>
+function toast(m) {
+    const t = document.getElementById('toast');
+    t.textContent = m; t.classList.add('on');
+    setTimeout(()=>t.classList.remove('on'), 2800);
+}
 
-            <div class="betting-layout">
-                <div class="countries-grid" id="countriesGrid"></div>
+document.getElementById('filters').onclick = e => {
+    const b = e.target.closest('.fbtn'); if (!b) return;
+    document.querySelectorAll('.fbtn').forEach(x=>x.classList.remove('on'));
+    b.classList.add('on'); filt = b.dataset.c; renderNations();
+};
+document.getElementById('search').oninput = e => { q = e.target.value.toLowerCase(); renderNations(); };
+document.getElementById('stake').oninput = calcRet;
+document.querySelectorAll('.chip').forEach(c => c.onclick = () => { document.getElementById('stake').value=c.dataset.v; calcRet(); });
+document.getElementById('placeBet').onclick = () => {
+    if (!pick) return;
+    const v = +document.getElementById('stake').value;
+    if (!v||v<=0) return toast('Enter a valid stake');
+    const p = pool(); p[pick.id]=(p[pick.id]||0)+v; save(p);
+    toast(`${v.toLocaleString()} placed on ${pick.name}`);
+    renderNations(); renderLb();
+};
 
-                <div class="bet-slip">
-                    <h3>🎫 BET SLIP</h3>
-                    <div class="bet-slip-selected" id="betSelected">
-                        <span class="bet-slip-placeholder">Select a country to bet on</span>
-                    </div>
-                    <div class="bet-amount-label">Bet Amount (FIFA 26)</div>
-                    <input type="number" class="bet-amount-input" id="betAmount" placeholder="1000" min="1" value="1000">
-                    <div class="bet-quick-amounts">
-                        <button class="quick-amt" data-amt="500">500</button>
-                        <button class="quick-amt" data-amt="1000">1K</button>
-                        <button class="quick-amt" data-amt="5000">5K</button>
-                        <button class="quick-amt" data-amt="10000">10K</button>
-                    </div>
-                    <div class="bet-payout">
-                        <span>Potential Return</span>
-                        <span class="payout-val" id="betPayout">—</span>
-                    </div>
-                    <button class="btn btn-gold bet-place" id="placeBet" disabled>⚽ Place Bet</button>
-                    <p class="bet-disclaimer">Community prediction pool for entertainment. Bets stored locally in your browser.</p>
-                </div>
-            </div>
+renderNations(); renderLb();
 
-            <div class="betting-leaderboard">
-                <h3>🏆 MOST BACKED NATIONS</h3>
-                <div class="leaderboard-list" id="leaderboard"></div>
-            </div>
-        </div>
-    </section>
+const topbar = document.getElementById('topbar');
+const nav = document.getElementById('nav');
+window.onscroll = () => {
+    topbar.classList.toggle('is-scrolled', scrollY > 30);
+    let cur = '';
+    document.querySelectorAll('section[id]').forEach(s => { if (scrollY >= s.offsetTop-140) cur = s.id; });
+    nav.querySelectorAll('a').forEach(a => a.classList.toggle('is-active', a.getAttribute('href')==='#'+cur));
+};
+document.getElementById('burger').onclick = () => nav.classList.toggle('open');
+nav.querySelectorAll('a').forEach(a => a.onclick = () => nav.classList.remove('open'));
 
-    <div class="bet-toast" id="betToast"></div>
+document.getElementById('copyCa').onclick = async () => {
+    try { await navigator.clipboard.writeText(CA); } catch {
+        const t=document.createElement('textarea'); t.value=CA; document.body.appendChild(t); t.select(); document.execCommand('copy'); document.body.removeChild(t);
+    }
+    const b=document.getElementById('copyCa'); b.textContent='Copied'; setTimeout(()=>b.textContent='Copy',2000);
+};
 
-    <!-- How to Buy -->
-    <section id="howtobuy">
-        <div class="section-inner" style="text-align:center;">
-            <span class="section-label">How to Buy</span>
-            <h2 class="section-title">GET ON THE PITCH</h2>
-            <p class="section-desc center">Score your FIFA 26 tokens in four easy steps. All buys go through PumpSwap on Solana.</p>
-
-            <div class="steps-grid">
-                <div class="step-card">
-                    <div class="step-num">01</div>
-                    <h3>Get a Wallet</h3>
-                    <p>Download Phantom or Solflare wallet. Create your account and securely store your seed phrase.</p>
-                </div>
-                <div class="step-card">
-                    <div class="step-num">02</div>
-                    <h3>Buy SOL</h3>
-                    <p>Purchase SOL from an exchange (Coinbase, Binance, etc.) and send it to your Solana wallet.</p>
-                </div>
-                <div class="step-card">
-                    <div class="step-num">03</div>
-                    <h3>Connect to PumpSwap</h3>
-                    <p>Head to PumpSwap, connect your wallet, and search for FIFA 26 using the contract address.</p>
-                </div>
-                <div class="step-card">
-                    <div class="step-num">04</div>
-                    <h3>Swap &amp; Hold</h3>
-                    <p>Swap SOL for FIFA 26, confirm the transaction, and you're officially on the team. LFG!</p>
-                </div>
-            </div>
-
-            <div class="howtobuy-cta">
-                <a href="https://swap.pump.fun/?output=pumppump" target="_blank" class="btn btn-gold">⚽ Buy FIFA 26 on PumpSwap</a>
-            </div>
-        </div>
-    </section>
-
-    <!-- Chart -->
-    <section id="chart">
-        <div class="section-inner">
-            <span class="section-label">Live Chart</span>
-            <h2 class="section-title">MATCH DAY STATS</h2>
-            <p class="section-desc center">Track FIFA 26 price action in real-time on DexScreener.</p>
-
-            <div class="chart-wrapper">
-                <iframe
-                    src="https://dexscreener.com/solana/pumppump?embed=1&theme=dark&trades=0&info=0"
-                    title="FIFA 26 DexScreener Chart"
-                    allowfullscreen>
-                </iframe>
-            </div>
-
-            <a href="https://dexscreener.com/solana/pumppump" target="_blank" class="chart-link">
-                View full chart on DexScreener →
-            </a>
-        </div>
-    </section>
-
-    <!-- Join Us -->
-    <section id="joinus">
-        <div class="section-inner joinus-content">
-            <img src="banner.png" alt="FIFA 26 Banner" class="joinus-banner">
-
-            <span class="section-label">Join Us</span>
-            <h2 class="section-title">JOIN THE SQUAD</h2>
-            <p class="section-desc center">The World Cup waits for no one. Join the FIFA 26 community, follow the action, and be part of the greatest pump on Solana.</p>
-
-            <div class="hero-buttons">
-                <a href="https://swap.pump.fun/?output=pumppump" target="_blank" class="btn btn-gold">⚽ Buy Now</a>
-                <a href="https://x.com/fifa26coin" target="_blank" class="btn btn-outline">Follow on X</a>
-            </div>
-
-            <div class="social-row">
-                <a href="https://x.com/fifa26coin" target="_blank" class="social-card">
-                    <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-                    <span>@fifa26coin</span>
-                </a>
-                <a href="https://dexscreener.com/solana/pumppump" target="_blank" class="social-card">
-                    <svg viewBox="0 0 24 24"><path d="M3 3h8v8H3V3zm10 0h8v8h-8V3zM3 13h8v8H3v-8zm10 0h8v8h-8v-8z"/></svg>
-                    <span>DexScreener</span>
-                </a>
-                <a href="https://swap.pump.fun/?output=pumppump" target="_blank" class="social-card">
-                    <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
-                    <span>PumpSwap</span>
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <footer>
-        <p>FIFA 26 &copy; 2026 | All Rights Reserved | Not affiliated with FIFA™</p>
-    </footer>
-
-    <script>
-        const header = document.getElementById('header');
-        const nav = document.getElementById('nav');
-        const menuToggle = document.getElementById('menuToggle');
-        const copyBtn = document.getElementById('copyCa');
-        const CA = 'pumppump';
-
-        const WC_KICKOFF = new Date('2026-06-11T19:00:00-06:00');
-
-        const WC_TEAMS = [
-            { id: 'arg', name: 'Argentina', code: 'AR', conf: 'CONMEBOL', odds: 5.5 },
-            { id: 'fra', name: 'France', code: 'FR', conf: 'UEFA', odds: 6.0 },
-            { id: 'bra', name: 'Brazil', code: 'BR', conf: 'CONMEBOL', odds: 7.0 },
-            { id: 'eng', name: 'England', code: 'GB', conf: 'UEFA', odds: 8.0 },
-            { id: 'esp', name: 'Spain', code: 'ES', conf: 'UEFA', odds: 8.5 },
-            { id: 'ger', name: 'Germany', code: 'DE', conf: 'UEFA', odds: 9.0 },
-            { id: 'por', name: 'Portugal', code: 'PT', conf: 'UEFA', odds: 10.0 },
-            { id: 'ned', name: 'Netherlands', code: 'NL', conf: 'UEFA', odds: 12.0 },
-            { id: 'bel', name: 'Belgium', code: 'BE', conf: 'UEFA', odds: 14.0 },
-            { id: 'cro', name: 'Croatia', code: 'HR', conf: 'UEFA', odds: 18.0 },
-            { id: 'uru', name: 'Uruguay', code: 'UY', conf: 'CONMEBOL', odds: 20.0 },
-            { id: 'col', name: 'Colombia', code: 'CO', conf: 'CONMEBOL', odds: 22.0 },
-            { id: 'mex', name: 'Mexico', code: 'MX', conf: 'CONCACAF', odds: 25.0 },
-            { id: 'usa', name: 'United States', code: 'US', conf: 'CONCACAF', odds: 28.0 },
-            { id: 'mar', name: 'Morocco', code: 'MA', conf: 'CAF', odds: 30.0 },
-            { id: 'jpn', name: 'Japan', code: 'JP', conf: 'AFC', odds: 35.0 },
-            { id: 'kor', name: 'South Korea', code: 'KR', conf: 'AFC', odds: 40.0 },
-            { id: 'sui', name: 'Switzerland', code: 'CH', conf: 'UEFA', odds: 42.0 },
-            { id: 'den', name: 'Norway', code: 'NO', conf: 'UEFA', odds: 45.0 },
-            { id: 'ecu', name: 'Ecuador', code: 'EC', conf: 'CONMEBOL', odds: 50.0 },
-            { id: 'sen', name: 'Senegal', code: 'SN', conf: 'CAF', odds: 55.0 },
-            { id: 'aus', name: 'Australia', code: 'AU', conf: 'AFC', odds: 60.0 },
-            { id: 'can', name: 'Canada', code: 'CA', conf: 'CONCACAF', odds: 65.0 },
-            { id: 'aut', name: 'Austria', code: 'AT', conf: 'UEFA', odds: 70.0 },
-            { id: 'swe', name: 'Sweden', code: 'SE', conf: 'UEFA', odds: 75.0 },
-            { id: 'tur', name: 'Türkiye', code: 'TR', conf: 'UEFA', odds: 80.0 },
-            { id: 'cze', name: 'Czechia', code: 'CZ', conf: 'UEFA', odds: 85.0 },
-            { id: 'sco', name: 'Scotland', code: 'GB', conf: 'UEFA', odds: 90.0 },
-            { id: 'par', name: 'Paraguay', code: 'PY', conf: 'CONMEBOL', odds: 95.0 },
-            { id: 'egy', name: 'Egypt', code: 'EG', conf: 'CAF', odds: 100.0 },
-            { id: 'alg', name: 'Algeria', code: 'DZ', conf: 'CAF', odds: 110.0 },
-            { id: 'gha', name: 'Ghana', code: 'GH', conf: 'CAF', odds: 120.0 },
-            { id: 'tun', name: 'Tunisia', code: 'TN', conf: 'CAF', odds: 130.0 },
-            { id: 'rsa', name: 'South Africa', code: 'ZA', conf: 'CAF', odds: 140.0 },
-            { id: 'cpv', name: 'Cape Verde', code: 'CV', conf: 'CAF', odds: 150.0 },
-            { id: 'civ', name: 'Ivory Coast', code: 'CI', conf: 'CAF', odds: 160.0 },
-            { id: 'cod', name: 'DR Congo', code: 'CD', conf: 'CAF', odds: 170.0 },
-            { id: 'irn', name: 'Iran', code: 'IR', conf: 'AFC', odds: 180.0 },
-            { id: 'ksa', name: 'Saudi Arabia', code: 'SA', conf: 'AFC', odds: 190.0 },
-            { id: 'qat', name: 'Qatar', code: 'QA', conf: 'AFC', odds: 200.0 },
-            { id: 'jor', name: 'Jordan', code: 'JO', conf: 'AFC', odds: 220.0 },
-            { id: 'uzb', name: 'Uzbekistan', code: 'UZ', conf: 'AFC', odds: 250.0 },
-            { id: 'irq', name: 'Iraq', code: 'IQ', conf: 'AFC', odds: 280.0 },
-            { id: 'pan', name: 'Panama', code: 'PA', conf: 'CONCACAF', odds: 300.0 },
-            { id: 'hai', name: 'Haiti', code: 'HT', conf: 'CONCACAF', odds: 350.0 },
-            { id: 'cuw', name: 'Curaçao', code: 'CW', conf: 'CONCACAF', odds: 400.0 },
-            { id: 'bih', name: 'Bosnia & Herz.', code: 'BA', conf: 'UEFA', odds: 420.0 },
-            { id: 'nzl', name: 'New Zealand', code: 'NZ', conf: 'OFC', odds: 500.0 },
-        ];
-
-        function toFlag(code) {
-            if (code.length !== 2) return '🏳️';
-            return String.fromCodePoint(...[...code.toUpperCase()].map(c => 127397 + c.charCodeAt(0)));
-        }
-
-        function pad(n) { return String(n).padStart(2, '0'); }
-
-        function updateCountdown() {
-            const now = Date.now();
-            const diff = WC_KICKOFF - now;
-            const live = document.getElementById('countdownLive');
-            const timer = document.getElementById('countdownTimer');
-
-            if (diff <= 0) {
-                timer.style.display = 'none';
-                live.style.display = 'inline';
-                return;
-            }
-
-            live.style.display = 'none';
-            timer.style.display = 'flex';
-            const d = Math.floor(diff / 86400000);
-            const h = Math.floor((diff % 86400000) / 3600000);
-            const m = Math.floor((diff % 3600000) / 60000);
-            const s = Math.floor((diff % 60000) / 1000);
-            document.getElementById('cdDays').textContent = pad(d);
-            document.getElementById('cdHours').textContent = pad(h);
-            document.getElementById('cdMins').textContent = pad(m);
-            document.getElementById('cdSecs').textContent = pad(s);
-        }
-
-        updateCountdown();
-        setInterval(updateCountdown, 1000);
-
-        let selectedTeam = null;
-        let activeFilter = 'all';
-        const POOL_KEY = 'fifa26_bet_pool';
-
-        function getPool() {
-            try { return JSON.parse(localStorage.getItem(POOL_KEY)) || {}; }
-            catch { return {}; }
-        }
-
-        function savePool(pool) {
-            localStorage.setItem(POOL_KEY, JSON.stringify(pool));
-        }
-
-        function getTotalPool(pool) {
-            return Object.values(pool).reduce((a, b) => a + b, 0);
-        }
-
-        function renderCountries() {
-            const grid = document.getElementById('countriesGrid');
-            const pool = getPool();
-            const total = getTotalPool(pool) || 1;
-            const filtered = activeFilter === 'all'
-                ? WC_TEAMS
-                : WC_TEAMS.filter(t => t.conf === activeFilter);
-
-            grid.innerHTML = filtered.map(team => {
-                const backed = pool[team.id] || 0;
-                const pct = ((backed / total) * 100).toFixed(1);
-                const sel = selectedTeam?.id === team.id ? ' selected' : '';
-                return `<div class="country-card${sel}" data-id="${team.id}">
-                    <div class="flag">${toFlag(team.code)}</div>
-                    <div class="name">${team.name}</div>
-                    <div class="odds">${team.odds.toFixed(1)}x</div>
-                    <div class="pool">${backed > 0 ? pct + '% backed' : team.conf}</div>
-                </div>`;
-            }).join('');
-
-            grid.querySelectorAll('.country-card').forEach(card => {
-                card.addEventListener('click', () => selectTeam(card.dataset.id));
-            });
-        }
-
-        function selectTeam(id) {
-            selectedTeam = WC_TEAMS.find(t => t.id === id);
-            const el = document.getElementById('betSelected');
-            el.innerHTML = `<span class="flag">${toFlag(selectedTeam.code)}</span>
-                <div class="info">
-                    <div class="name">${selectedTeam.name}</div>
-                    <div class="odds">Odds: ${selectedTeam.odds.toFixed(1)}x</div>
-                </div>`;
-            document.getElementById('placeBet').disabled = false;
-            updatePayout();
-            renderCountries();
-        }
-
-        function updatePayout() {
-            const amt = parseFloat(document.getElementById('betAmount').value) || 0;
-            const el = document.getElementById('betPayout');
-            if (!selectedTeam || amt <= 0) { el.textContent = '—'; return; }
-            el.textContent = (amt * selectedTeam.odds).toLocaleString() + ' FIFA 26';
-        }
-
-        function renderLeaderboard() {
-            const pool = getPool();
-            const sorted = WC_TEAMS
-                .map(t => ({ ...t, backed: pool[t.id] || 0 }))
-                .filter(t => t.backed > 0)
-                .sort((a, b) => b.backed - a.backed)
-                .slice(0, 8);
-            const max = sorted[0]?.backed || 1;
-            const el = document.getElementById('leaderboard');
-
-            if (!sorted.length) {
-                el.innerHTML = '<p style="text-align:center;opacity:0.5;font-size:0.85rem;grid-column:1/-1;">No bets placed yet — be the first!</p>';
-                return;
-            }
-
-            el.innerHTML = sorted.map((t, i) => {
-                const pct = ((t.backed / max) * 100).toFixed(0);
-                return `<div class="leaderboard-item">
-                    <span class="rank">#${i + 1}</span>
-                    <span class="flag">${toFlag(t.code)}</span>
-                    <div class="bar-wrap">
-                        <div class="bar-label"><span>${t.name}</span><span>${t.backed.toLocaleString()}</span></div>
-                        <div class="bar"><div class="bar-fill" style="width:${pct}%"></div></div>
-                    </div>
-                </div>`;
-            }).join('');
-        }
-
-        function showToast(msg) {
-            const t = document.getElementById('betToast');
-            t.textContent = msg;
-            t.classList.add('show');
-            setTimeout(() => t.classList.remove('show'), 3000);
-        }
-
-        document.getElementById('betFilters').addEventListener('click', e => {
-            const btn = e.target.closest('.filter-btn');
-            if (!btn) return;
-            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-            activeFilter = btn.dataset.conf;
-            renderCountries();
-        });
-
-        document.getElementById('betAmount').addEventListener('input', updatePayout);
-
-        document.querySelectorAll('.quick-amt').forEach(btn => {
-            btn.addEventListener('click', () => {
-                document.getElementById('betAmount').value = btn.dataset.amt;
-                updatePayout();
-            });
-        });
-
-        document.getElementById('placeBet').addEventListener('click', () => {
-            if (!selectedTeam) return;
-            const amt = parseFloat(document.getElementById('betAmount').value);
-            if (!amt || amt <= 0) { showToast('Enter a valid bet amount'); return; }
-            const pool = getPool();
-            pool[selectedTeam.id] = (pool[selectedTeam.id] || 0) + amt;
-            savePool(pool);
-            showToast(`⚽ ${amt.toLocaleString()} FIFA 26 on ${selectedTeam.name}!`);
-            renderCountries();
-            renderLeaderboard();
-        });
-
-        renderCountries();
-        renderLeaderboard();
-
-        window.addEventListener('scroll', () => {
-            header.classList.toggle('scrolled', window.scrollY > 50);
-        });
-
-        menuToggle.addEventListener('click', () => {
-            nav.classList.toggle('open');
-        });
-
-        nav.querySelectorAll('a').forEach(link => {
-            link.addEventListener('click', () => nav.classList.remove('open'));
-        });
-
-        copyBtn.addEventListener('click', async () => {
-            try {
-                await navigator.clipboard.writeText(CA);
-                copyBtn.textContent = 'Copied!';
-                setTimeout(() => { copyBtn.textContent = 'Copy'; }, 2000);
-            } catch {
-                const ta = document.createElement('textarea');
-                ta.value = CA;
-                document.body.appendChild(ta);
-                ta.select();
-                document.execCommand('copy');
-                document.body.removeChild(ta);
-                copyBtn.textContent = 'Copied!';
-                setTimeout(() => { copyBtn.textContent = 'Copy'; }, 2000);
-            }
-        });
-    </script>
+const revealObs = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); }), { threshold: .06 });
+document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
+</script>
 </body>
 </html>
