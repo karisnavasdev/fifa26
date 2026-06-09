@@ -56,10 +56,90 @@
             z-index: -1;
         }
 
+        /* ── Countdown Bar ── */
+        .countdown-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1001;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            flex-wrap: wrap;
+            padding: 8px 20px;
+            background: linear-gradient(90deg, var(--navy) 0%, #1a3a1a 50%, var(--navy) 100%);
+            border-bottom: 2px solid var(--gold);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+        }
+
+        .countdown-label {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 0.95rem;
+            letter-spacing: 2px;
+            color: var(--gold-bright);
+            white-space: nowrap;
+        }
+
+        .countdown-timer {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .countdown-unit {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-width: 48px;
+        }
+
+        .countdown-unit .num {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.5rem;
+            line-height: 1;
+            color: var(--white);
+            background: rgba(0,0,0,0.35);
+            border: 1px solid rgba(212,175,55,0.4);
+            border-radius: 8px;
+            padding: 4px 10px;
+            min-width: 44px;
+            text-align: center;
+        }
+
+        .countdown-unit .lbl {
+            font-size: 0.6rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: rgba(255,255,255,0.55);
+            margin-top: 2px;
+        }
+
+        .countdown-sep {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.4rem;
+            color: var(--gold);
+            margin-bottom: 14px;
+        }
+
+        .countdown-live {
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: #4ade80;
+            animation: pulseLive 1.5s ease-in-out infinite;
+        }
+
+        @keyframes pulseLive {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
         /* ── Header ── */
         header {
             position: fixed;
-            top: 0;
+            top: 46px;
             left: 0;
             right: 0;
             z-index: 1000;
@@ -596,6 +676,323 @@
             margin-top: 48px;
         }
 
+        /* ── Betting ── */
+        #betting {
+            background: rgba(11, 29, 58, 0.72);
+            text-align: center;
+        }
+
+        .betting-filters {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 32px;
+        }
+
+        .filter-btn {
+            background: rgba(255,255,255,0.06);
+            border: 1px solid rgba(212,175,55,0.25);
+            color: rgba(255,255,255,0.8);
+            padding: 8px 18px;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            background: rgba(212,175,55,0.2);
+            border-color: var(--gold);
+            color: var(--gold-bright);
+        }
+
+        .betting-layout {
+            display: grid;
+            grid-template-columns: 1fr 320px;
+            gap: 28px;
+            text-align: left;
+            margin-top: 8px;
+        }
+
+        .countries-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            gap: 12px;
+        }
+
+        .country-card {
+            background: rgba(11,29,58,0.6);
+            border: 1px solid rgba(212,175,55,0.15);
+            border-radius: 14px;
+            padding: 14px 10px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.25s;
+            position: relative;
+        }
+
+        .country-card:hover {
+            border-color: rgba(212,175,55,0.5);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+        }
+
+        .country-card.selected {
+            border-color: var(--gold-bright);
+            background: rgba(212,175,55,0.15);
+            box-shadow: 0 0 20px rgba(212,175,55,0.25);
+        }
+
+        .country-card .flag {
+            font-size: 2rem;
+            line-height: 1;
+            margin-bottom: 6px;
+        }
+
+        .country-card .name {
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            margin-bottom: 4px;
+        }
+
+        .country-card .odds {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.1rem;
+            color: var(--gold-bright);
+            letter-spacing: 1px;
+        }
+
+        .country-card .pool {
+            font-size: 0.65rem;
+            opacity: 0.55;
+            margin-top: 2px;
+        }
+
+        .bet-slip {
+            background: var(--glass);
+            border: 1px solid rgba(212,175,55,0.3);
+            border-radius: 20px;
+            padding: 24px;
+            backdrop-filter: blur(12px);
+            position: sticky;
+            top: 120px;
+            height: fit-content;
+        }
+
+        .bet-slip h3 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.5rem;
+            letter-spacing: 2px;
+            color: var(--gold-bright);
+            margin-bottom: 16px;
+            text-align: center;
+        }
+
+        .bet-slip-selected {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: rgba(0,0,0,0.3);
+            border-radius: 12px;
+            padding: 14px;
+            margin-bottom: 16px;
+            min-height: 60px;
+        }
+
+        .bet-slip-selected .flag {
+            font-size: 2.2rem;
+        }
+
+        .bet-slip-selected .info .name {
+            font-weight: 700;
+            font-size: 1rem;
+        }
+
+        .bet-slip-selected .info .odds {
+            font-size: 0.8rem;
+            color: var(--gold);
+        }
+
+        .bet-slip-placeholder {
+            color: rgba(255,255,255,0.45);
+            font-size: 0.85rem;
+            text-align: center;
+            width: 100%;
+        }
+
+        .bet-amount-label {
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.6);
+            margin-bottom: 8px;
+        }
+
+        .bet-amount-input {
+            width: 100%;
+            background: rgba(0,0,0,0.35);
+            border: 1px solid rgba(212,175,55,0.3);
+            border-radius: 10px;
+            padding: 12px 14px;
+            color: var(--white);
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 12px;
+            outline: none;
+        }
+
+        .bet-amount-input:focus {
+            border-color: var(--gold);
+        }
+
+        .bet-quick-amounts {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+
+        .quick-amt {
+            flex: 1;
+            background: rgba(212,175,55,0.1);
+            border: 1px solid rgba(212,175,55,0.25);
+            color: var(--gold-bright);
+            padding: 6px;
+            border-radius: 8px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .quick-amt:hover {
+            background: rgba(212,175,55,0.25);
+        }
+
+        .bet-payout {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.85rem;
+            margin-bottom: 16px;
+            padding: 10px 0;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .bet-payout .payout-val {
+            font-weight: 800;
+            color: #4ade80;
+        }
+
+        .bet-place {
+            width: 100%;
+            margin-bottom: 12px;
+        }
+
+        .bet-place:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+            transform: none !important;
+        }
+
+        .bet-disclaimer {
+            font-size: 0.65rem;
+            opacity: 0.45;
+            text-align: center;
+            line-height: 1.4;
+        }
+
+        .betting-leaderboard {
+            margin-top: 40px;
+            text-align: left;
+        }
+
+        .betting-leaderboard h3 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.4rem;
+            letter-spacing: 2px;
+            color: var(--gold-bright);
+            margin-bottom: 16px;
+            text-align: center;
+        }
+
+        .leaderboard-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 10px;
+        }
+
+        .leaderboard-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(11,29,58,0.5);
+            border: 1px solid rgba(212,175,55,0.12);
+            border-radius: 10px;
+            padding: 10px 14px;
+        }
+
+        .leaderboard-item .rank {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.2rem;
+            color: var(--gold);
+            min-width: 24px;
+        }
+
+        .leaderboard-item .flag { font-size: 1.4rem; }
+
+        .leaderboard-item .bar-wrap {
+            flex: 1;
+        }
+
+        .leaderboard-item .bar-label {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.7rem;
+            margin-bottom: 4px;
+        }
+
+        .leaderboard-item .bar {
+            height: 6px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .leaderboard-item .bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--gold-dark), var(--gold-bright));
+            border-radius: 3px;
+            transition: width 0.5s ease;
+        }
+
+        .bet-toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%) translateY(80px);
+            background: linear-gradient(135deg, var(--gold-bright), var(--gold-dark));
+            color: var(--navy);
+            padding: 14px 28px;
+            border-radius: 50px;
+            font-weight: 800;
+            font-size: 0.9rem;
+            z-index: 2000;
+            opacity: 0;
+            transition: all 0.4s;
+            pointer-events: none;
+        }
+
+        .bet-toast.show {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+
         /* ── Chart ── */
         #chart {
             background: rgba(11, 29, 58, 0.7);
@@ -770,10 +1167,57 @@
             header {
                 padding: 12px 16px;
             }
+
+            .countdown-bar {
+                gap: 8px;
+                padding: 6px 12px;
+            }
+
+            .countdown-label {
+                font-size: 0.75rem;
+                width: 100%;
+                text-align: center;
+            }
+
+            .countdown-unit .num {
+                font-size: 1.1rem;
+                min-width: 36px;
+                padding: 3px 6px;
+            }
+
+            header {
+                top: 72px;
+            }
+
+            .betting-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .bet-slip {
+                position: static;
+            }
+
+            .countries-grid {
+                grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+            }
         }
     </style>
 </head>
 <body>
+
+    <div class="countdown-bar" id="countdownBar">
+        <span class="countdown-label">⚽ FIFA WORLD CUP 2026 KICKOFF</span>
+        <div class="countdown-timer" id="countdownTimer">
+            <div class="countdown-unit"><span class="num" id="cdDays">00</span><span class="lbl">Days</span></div>
+            <span class="countdown-sep">:</span>
+            <div class="countdown-unit"><span class="num" id="cdHours">00</span><span class="lbl">Hours</span></div>
+            <span class="countdown-sep">:</span>
+            <div class="countdown-unit"><span class="num" id="cdMins">00</span><span class="lbl">Mins</span></div>
+            <span class="countdown-sep">:</span>
+            <div class="countdown-unit"><span class="num" id="cdSecs">00</span><span class="lbl">Secs</span></div>
+        </div>
+        <span class="countdown-live" id="countdownLive" style="display:none;">● LIVE</span>
+    </div>
 
     <header id="header">
         <a href="#hero" class="header-brand">
@@ -784,6 +1228,7 @@
         <nav id="nav">
             <a href="#hero">Home</a>
             <a href="#about">About</a>
+            <a href="#betting">Betting</a>
             <a href="#howtobuy">How to Buy</a>
             <a href="#chart">Chart</a>
             <a href="#joinus">Join Us</a>
@@ -869,6 +1314,57 @@
             </div>
         </div>
     </section>
+
+    <!-- Betting -->
+    <section id="betting">
+        <div class="section-inner">
+            <span class="section-label">World Cup Betting</span>
+            <h2 class="section-title">PICK YOUR CHAMPION</h2>
+            <p class="section-desc center">Back any of the 48 World Cup nations. Place your FIFA 26 tokens on who lifts the trophy in USA, Mexico &amp; Canada.</p>
+
+            <div class="betting-filters" id="betFilters">
+                <button class="filter-btn active" data-conf="all">All (48)</button>
+                <button class="filter-btn" data-conf="UEFA">UEFA</button>
+                <button class="filter-btn" data-conf="CONMEBOL">CONMEBOL</button>
+                <button class="filter-btn" data-conf="CONCACAF">CONCACAF</button>
+                <button class="filter-btn" data-conf="CAF">CAF</button>
+                <button class="filter-btn" data-conf="AFC">AFC</button>
+                <button class="filter-btn" data-conf="OFC">OFC</button>
+            </div>
+
+            <div class="betting-layout">
+                <div class="countries-grid" id="countriesGrid"></div>
+
+                <div class="bet-slip">
+                    <h3>🎫 BET SLIP</h3>
+                    <div class="bet-slip-selected" id="betSelected">
+                        <span class="bet-slip-placeholder">Select a country to bet on</span>
+                    </div>
+                    <div class="bet-amount-label">Bet Amount (FIFA 26)</div>
+                    <input type="number" class="bet-amount-input" id="betAmount" placeholder="1000" min="1" value="1000">
+                    <div class="bet-quick-amounts">
+                        <button class="quick-amt" data-amt="500">500</button>
+                        <button class="quick-amt" data-amt="1000">1K</button>
+                        <button class="quick-amt" data-amt="5000">5K</button>
+                        <button class="quick-amt" data-amt="10000">10K</button>
+                    </div>
+                    <div class="bet-payout">
+                        <span>Potential Return</span>
+                        <span class="payout-val" id="betPayout">—</span>
+                    </div>
+                    <button class="btn btn-gold bet-place" id="placeBet" disabled>⚽ Place Bet</button>
+                    <p class="bet-disclaimer">Community prediction pool for entertainment. Bets stored locally in your browser.</p>
+                </div>
+            </div>
+
+            <div class="betting-leaderboard">
+                <h3>🏆 MOST BACKED NATIONS</h3>
+                <div class="leaderboard-list" id="leaderboard"></div>
+            </div>
+        </div>
+    </section>
+
+    <div class="bet-toast" id="betToast"></div>
 
     <!-- How to Buy -->
     <section id="howtobuy">
@@ -967,8 +1463,224 @@
         const nav = document.getElementById('nav');
         const menuToggle = document.getElementById('menuToggle');
         const copyBtn = document.getElementById('copyCa');
-        const caText = document.getElementById('caText');
         const CA = 'pumppump';
+
+        const WC_KICKOFF = new Date('2026-06-11T19:00:00-06:00');
+
+        const WC_TEAMS = [
+            { id: 'arg', name: 'Argentina', code: 'AR', conf: 'CONMEBOL', odds: 5.5 },
+            { id: 'fra', name: 'France', code: 'FR', conf: 'UEFA', odds: 6.0 },
+            { id: 'bra', name: 'Brazil', code: 'BR', conf: 'CONMEBOL', odds: 7.0 },
+            { id: 'eng', name: 'England', code: 'GB', conf: 'UEFA', odds: 8.0 },
+            { id: 'esp', name: 'Spain', code: 'ES', conf: 'UEFA', odds: 8.5 },
+            { id: 'ger', name: 'Germany', code: 'DE', conf: 'UEFA', odds: 9.0 },
+            { id: 'por', name: 'Portugal', code: 'PT', conf: 'UEFA', odds: 10.0 },
+            { id: 'ned', name: 'Netherlands', code: 'NL', conf: 'UEFA', odds: 12.0 },
+            { id: 'bel', name: 'Belgium', code: 'BE', conf: 'UEFA', odds: 14.0 },
+            { id: 'cro', name: 'Croatia', code: 'HR', conf: 'UEFA', odds: 18.0 },
+            { id: 'uru', name: 'Uruguay', code: 'UY', conf: 'CONMEBOL', odds: 20.0 },
+            { id: 'col', name: 'Colombia', code: 'CO', conf: 'CONMEBOL', odds: 22.0 },
+            { id: 'mex', name: 'Mexico', code: 'MX', conf: 'CONCACAF', odds: 25.0 },
+            { id: 'usa', name: 'United States', code: 'US', conf: 'CONCACAF', odds: 28.0 },
+            { id: 'mar', name: 'Morocco', code: 'MA', conf: 'CAF', odds: 30.0 },
+            { id: 'jpn', name: 'Japan', code: 'JP', conf: 'AFC', odds: 35.0 },
+            { id: 'kor', name: 'South Korea', code: 'KR', conf: 'AFC', odds: 40.0 },
+            { id: 'sui', name: 'Switzerland', code: 'CH', conf: 'UEFA', odds: 42.0 },
+            { id: 'den', name: 'Norway', code: 'NO', conf: 'UEFA', odds: 45.0 },
+            { id: 'ecu', name: 'Ecuador', code: 'EC', conf: 'CONMEBOL', odds: 50.0 },
+            { id: 'sen', name: 'Senegal', code: 'SN', conf: 'CAF', odds: 55.0 },
+            { id: 'aus', name: 'Australia', code: 'AU', conf: 'AFC', odds: 60.0 },
+            { id: 'can', name: 'Canada', code: 'CA', conf: 'CONCACAF', odds: 65.0 },
+            { id: 'aut', name: 'Austria', code: 'AT', conf: 'UEFA', odds: 70.0 },
+            { id: 'swe', name: 'Sweden', code: 'SE', conf: 'UEFA', odds: 75.0 },
+            { id: 'tur', name: 'Türkiye', code: 'TR', conf: 'UEFA', odds: 80.0 },
+            { id: 'cze', name: 'Czechia', code: 'CZ', conf: 'UEFA', odds: 85.0 },
+            { id: 'sco', name: 'Scotland', code: 'GB', conf: 'UEFA', odds: 90.0 },
+            { id: 'par', name: 'Paraguay', code: 'PY', conf: 'CONMEBOL', odds: 95.0 },
+            { id: 'egy', name: 'Egypt', code: 'EG', conf: 'CAF', odds: 100.0 },
+            { id: 'alg', name: 'Algeria', code: 'DZ', conf: 'CAF', odds: 110.0 },
+            { id: 'gha', name: 'Ghana', code: 'GH', conf: 'CAF', odds: 120.0 },
+            { id: 'tun', name: 'Tunisia', code: 'TN', conf: 'CAF', odds: 130.0 },
+            { id: 'rsa', name: 'South Africa', code: 'ZA', conf: 'CAF', odds: 140.0 },
+            { id: 'cpv', name: 'Cape Verde', code: 'CV', conf: 'CAF', odds: 150.0 },
+            { id: 'civ', name: 'Ivory Coast', code: 'CI', conf: 'CAF', odds: 160.0 },
+            { id: 'cod', name: 'DR Congo', code: 'CD', conf: 'CAF', odds: 170.0 },
+            { id: 'irn', name: 'Iran', code: 'IR', conf: 'AFC', odds: 180.0 },
+            { id: 'ksa', name: 'Saudi Arabia', code: 'SA', conf: 'AFC', odds: 190.0 },
+            { id: 'qat', name: 'Qatar', code: 'QA', conf: 'AFC', odds: 200.0 },
+            { id: 'jor', name: 'Jordan', code: 'JO', conf: 'AFC', odds: 220.0 },
+            { id: 'uzb', name: 'Uzbekistan', code: 'UZ', conf: 'AFC', odds: 250.0 },
+            { id: 'irq', name: 'Iraq', code: 'IQ', conf: 'AFC', odds: 280.0 },
+            { id: 'pan', name: 'Panama', code: 'PA', conf: 'CONCACAF', odds: 300.0 },
+            { id: 'hai', name: 'Haiti', code: 'HT', conf: 'CONCACAF', odds: 350.0 },
+            { id: 'cuw', name: 'Curaçao', code: 'CW', conf: 'CONCACAF', odds: 400.0 },
+            { id: 'bih', name: 'Bosnia & Herz.', code: 'BA', conf: 'UEFA', odds: 420.0 },
+            { id: 'nzl', name: 'New Zealand', code: 'NZ', conf: 'OFC', odds: 500.0 },
+        ];
+
+        function toFlag(code) {
+            if (code.length !== 2) return '🏳️';
+            return String.fromCodePoint(...[...code.toUpperCase()].map(c => 127397 + c.charCodeAt(0)));
+        }
+
+        function pad(n) { return String(n).padStart(2, '0'); }
+
+        function updateCountdown() {
+            const now = Date.now();
+            const diff = WC_KICKOFF - now;
+            const live = document.getElementById('countdownLive');
+            const timer = document.getElementById('countdownTimer');
+
+            if (diff <= 0) {
+                timer.style.display = 'none';
+                live.style.display = 'inline';
+                return;
+            }
+
+            live.style.display = 'none';
+            timer.style.display = 'flex';
+            const d = Math.floor(diff / 86400000);
+            const h = Math.floor((diff % 86400000) / 3600000);
+            const m = Math.floor((diff % 3600000) / 60000);
+            const s = Math.floor((diff % 60000) / 1000);
+            document.getElementById('cdDays').textContent = pad(d);
+            document.getElementById('cdHours').textContent = pad(h);
+            document.getElementById('cdMins').textContent = pad(m);
+            document.getElementById('cdSecs').textContent = pad(s);
+        }
+
+        updateCountdown();
+        setInterval(updateCountdown, 1000);
+
+        let selectedTeam = null;
+        let activeFilter = 'all';
+        const POOL_KEY = 'fifa26_bet_pool';
+
+        function getPool() {
+            try { return JSON.parse(localStorage.getItem(POOL_KEY)) || {}; }
+            catch { return {}; }
+        }
+
+        function savePool(pool) {
+            localStorage.setItem(POOL_KEY, JSON.stringify(pool));
+        }
+
+        function getTotalPool(pool) {
+            return Object.values(pool).reduce((a, b) => a + b, 0);
+        }
+
+        function renderCountries() {
+            const grid = document.getElementById('countriesGrid');
+            const pool = getPool();
+            const total = getTotalPool(pool) || 1;
+            const filtered = activeFilter === 'all'
+                ? WC_TEAMS
+                : WC_TEAMS.filter(t => t.conf === activeFilter);
+
+            grid.innerHTML = filtered.map(team => {
+                const backed = pool[team.id] || 0;
+                const pct = ((backed / total) * 100).toFixed(1);
+                const sel = selectedTeam?.id === team.id ? ' selected' : '';
+                return `<div class="country-card${sel}" data-id="${team.id}">
+                    <div class="flag">${toFlag(team.code)}</div>
+                    <div class="name">${team.name}</div>
+                    <div class="odds">${team.odds.toFixed(1)}x</div>
+                    <div class="pool">${backed > 0 ? pct + '% backed' : team.conf}</div>
+                </div>`;
+            }).join('');
+
+            grid.querySelectorAll('.country-card').forEach(card => {
+                card.addEventListener('click', () => selectTeam(card.dataset.id));
+            });
+        }
+
+        function selectTeam(id) {
+            selectedTeam = WC_TEAMS.find(t => t.id === id);
+            const el = document.getElementById('betSelected');
+            el.innerHTML = `<span class="flag">${toFlag(selectedTeam.code)}</span>
+                <div class="info">
+                    <div class="name">${selectedTeam.name}</div>
+                    <div class="odds">Odds: ${selectedTeam.odds.toFixed(1)}x</div>
+                </div>`;
+            document.getElementById('placeBet').disabled = false;
+            updatePayout();
+            renderCountries();
+        }
+
+        function updatePayout() {
+            const amt = parseFloat(document.getElementById('betAmount').value) || 0;
+            const el = document.getElementById('betPayout');
+            if (!selectedTeam || amt <= 0) { el.textContent = '—'; return; }
+            el.textContent = (amt * selectedTeam.odds).toLocaleString() + ' FIFA 26';
+        }
+
+        function renderLeaderboard() {
+            const pool = getPool();
+            const sorted = WC_TEAMS
+                .map(t => ({ ...t, backed: pool[t.id] || 0 }))
+                .filter(t => t.backed > 0)
+                .sort((a, b) => b.backed - a.backed)
+                .slice(0, 8);
+            const max = sorted[0]?.backed || 1;
+            const el = document.getElementById('leaderboard');
+
+            if (!sorted.length) {
+                el.innerHTML = '<p style="text-align:center;opacity:0.5;font-size:0.85rem;grid-column:1/-1;">No bets placed yet — be the first!</p>';
+                return;
+            }
+
+            el.innerHTML = sorted.map((t, i) => {
+                const pct = ((t.backed / max) * 100).toFixed(0);
+                return `<div class="leaderboard-item">
+                    <span class="rank">#${i + 1}</span>
+                    <span class="flag">${toFlag(t.code)}</span>
+                    <div class="bar-wrap">
+                        <div class="bar-label"><span>${t.name}</span><span>${t.backed.toLocaleString()}</span></div>
+                        <div class="bar"><div class="bar-fill" style="width:${pct}%"></div></div>
+                    </div>
+                </div>`;
+            }).join('');
+        }
+
+        function showToast(msg) {
+            const t = document.getElementById('betToast');
+            t.textContent = msg;
+            t.classList.add('show');
+            setTimeout(() => t.classList.remove('show'), 3000);
+        }
+
+        document.getElementById('betFilters').addEventListener('click', e => {
+            const btn = e.target.closest('.filter-btn');
+            if (!btn) return;
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            activeFilter = btn.dataset.conf;
+            renderCountries();
+        });
+
+        document.getElementById('betAmount').addEventListener('input', updatePayout);
+
+        document.querySelectorAll('.quick-amt').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.getElementById('betAmount').value = btn.dataset.amt;
+                updatePayout();
+            });
+        });
+
+        document.getElementById('placeBet').addEventListener('click', () => {
+            if (!selectedTeam) return;
+            const amt = parseFloat(document.getElementById('betAmount').value);
+            if (!amt || amt <= 0) { showToast('Enter a valid bet amount'); return; }
+            const pool = getPool();
+            pool[selectedTeam.id] = (pool[selectedTeam.id] || 0) + amt;
+            savePool(pool);
+            showToast(`⚽ ${amt.toLocaleString()} FIFA 26 on ${selectedTeam.name}!`);
+            renderCountries();
+            renderLeaderboard();
+        });
+
+        renderCountries();
+        renderLeaderboard();
 
         window.addEventListener('scroll', () => {
             header.classList.toggle('scrolled', window.scrollY > 50);
