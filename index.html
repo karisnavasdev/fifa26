@@ -1,0 +1,1003 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FIFA 26 — World Cup Meme Coin</title>
+    <link rel="icon" href="logo.png" type="image/png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --navy: #0b1d3a;
+            --navy-light: #14325f;
+            --gold: #d4af37;
+            --gold-bright: #ffd700;
+            --gold-dark: #a67c00;
+            --pitch: #1a6b38;
+            --pitch-dark: #0f4a26;
+            --pitch-light: #2d9a55;
+            --white: #ffffff;
+            --glass: rgba(11, 29, 58, 0.75);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--navy);
+            color: var(--white);
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background: url('123.jpg') center center / cover no-repeat;
+            z-index: -2;
+        }
+
+        body::after {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background: rgba(11, 29, 58, 0.78);
+            z-index: -1;
+        }
+
+        /* ── Header ── */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 32px;
+            background: linear-gradient(180deg, rgba(11,29,58,0.97) 0%, rgba(11,29,58,0.6) 80%, transparent 100%);
+            backdrop-filter: blur(8px);
+            transition: background 0.3s;
+        }
+
+        header.scrolled {
+            background: rgba(11,29,58,0.97);
+            box-shadow: 0 4px 30px rgba(0,0,0,0.4);
+        }
+
+        .header-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            color: var(--white);
+        }
+
+        .header-brand img {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            border: 2px solid var(--gold);
+            object-fit: cover;
+        }
+
+        .header-brand span {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.6rem;
+            letter-spacing: 3px;
+            background: linear-gradient(135deg, var(--gold-bright), var(--gold));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            gap: 28px;
+        }
+
+        nav a {
+            color: rgba(255,255,255,0.85);
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: var(--gold-bright);
+        }
+
+        .nav-buy {
+            background: linear-gradient(135deg, var(--gold-bright), var(--gold-dark));
+            color: var(--navy) !important;
+            padding: 8px 22px;
+            border-radius: 50px;
+            font-weight: 800 !important;
+            transition: transform 0.3s, box-shadow 0.3s !important;
+        }
+
+        .nav-buy:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 20px rgba(212,175,55,0.5);
+            color: var(--navy) !important;
+        }
+
+        .header-socials {
+            display: flex;
+            gap: 12px;
+        }
+
+        .header-socials a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.08);
+            border: 1px solid rgba(212,175,55,0.3);
+            transition: all 0.3s;
+            text-decoration: none;
+        }
+
+        .header-socials a:hover {
+            background: rgba(212,175,55,0.2);
+            border-color: var(--gold);
+            transform: translateY(-2px);
+        }
+
+        .header-socials svg {
+            width: 18px;
+            height: 18px;
+            fill: var(--white);
+        }
+
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 4px;
+        }
+
+        .menu-toggle span {
+            display: block;
+            width: 24px;
+            height: 2px;
+            background: var(--gold);
+            margin: 5px 0;
+            transition: 0.3s;
+        }
+
+        /* ── Hero ── */
+        #hero {
+            position: relative;
+            height: 100vh;
+            min-height: 600px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        .hero-video {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 0;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            inset: 0;
+            background:
+                linear-gradient(180deg, rgba(11,29,58,0.5) 0%, rgba(15,74,38,0.4) 50%, rgba(11,29,58,0.85) 100%),
+                radial-gradient(ellipse at center, transparent 30%, rgba(11,29,58,0.6) 100%);
+            z-index: 1;
+        }
+
+        .hero-pitch-lines {
+            position: absolute;
+            inset: 0;
+            z-index: 2;
+            opacity: 0.08;
+            background:
+                repeating-linear-gradient(90deg, transparent, transparent 80px, rgba(255,255,255,0.5) 80px, rgba(255,255,255,0.5) 82px);
+            pointer-events: none;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 3;
+            padding: 20px;
+            max-width: 900px;
+        }
+
+        .hero-logo {
+            width: clamp(180px, 30vw, 320px);
+            margin-bottom: 24px;
+            filter: drop-shadow(0 8px 30px rgba(0,0,0,0.6));
+            animation: heroFloat 4s ease-in-out infinite;
+        }
+
+        @keyframes heroFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: rgba(212,175,55,0.15);
+            border: 1px solid rgba(212,175,55,0.4);
+            padding: 6px 20px;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--gold-bright);
+            margin-bottom: 16px;
+            animation: fadeUp 0.8s ease-out;
+        }
+
+        .hero-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(3rem, 10vw, 7rem);
+            letter-spacing: 6px;
+            line-height: 1;
+            text-shadow: 0 4px 20px rgba(0,0,0,0.5);
+            animation: fadeUp 0.8s ease-out 0.1s backwards;
+        }
+
+        .hero-title .gold {
+            background: linear-gradient(135deg, var(--gold-bright), var(--gold), var(--gold-dark));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-tagline {
+            font-size: clamp(1rem, 2.5vw, 1.35rem);
+            max-width: 600px;
+            margin: 20px auto 36px;
+            opacity: 0.9;
+            line-height: 1.6;
+            animation: fadeUp 0.8s ease-out 0.2s backwards;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+            animation: fadeUp 0.8s ease-out 0.3s backwards;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 14px 36px;
+            border-radius: 50px;
+            font-size: 0.95rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            text-decoration: none;
+            cursor: pointer;
+            border: none;
+            transition: all 0.3s;
+        }
+
+        .btn-gold {
+            background: linear-gradient(135deg, var(--gold-bright), var(--gold-dark));
+            color: var(--navy);
+            box-shadow: 0 4px 25px rgba(212,175,55,0.4);
+        }
+
+        .btn-gold:hover {
+            transform: translateY(-3px) scale(1.03);
+            box-shadow: 0 8px 35px rgba(212,175,55,0.6);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--white);
+            border: 2px solid rgba(255,255,255,0.4);
+        }
+
+        .btn-outline:hover {
+            border-color: var(--gold);
+            color: var(--gold-bright);
+            background: rgba(212,175,55,0.1);
+        }
+
+        .ca-bar {
+            margin-top: 32px;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background: rgba(0,0,0,0.4);
+            border: 1px solid rgba(212,175,55,0.3);
+            border-radius: 12px;
+            padding: 10px 20px;
+            font-size: 0.85rem;
+            animation: fadeUp 0.8s ease-out 0.4s backwards;
+        }
+
+        .ca-bar span {
+            color: var(--gold);
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        .ca-bar code {
+            font-family: 'Inter', monospace;
+            color: rgba(255,255,255,0.8);
+            font-size: 0.8rem;
+            word-break: break-all;
+        }
+
+        .copy-btn {
+            background: rgba(212,175,55,0.2);
+            border: 1px solid var(--gold);
+            color: var(--gold-bright);
+            padding: 6px 14px;
+            border-radius: 8px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            white-space: nowrap;
+        }
+
+        .copy-btn:hover {
+            background: var(--gold);
+            color: var(--navy);
+        }
+
+        .scroll-hint {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 3;
+            animation: bounce 2s infinite;
+        }
+
+        .scroll-hint svg {
+            width: 32px;
+            height: 32px;
+            fill: rgba(255,255,255,0.6);
+        }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(25px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(-12px); }
+        }
+
+        /* ── Sections shared ── */
+        section {
+            position: relative;
+            padding: 100px 24px;
+        }
+
+        .section-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-label {
+            display: inline-block;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 12px;
+        }
+
+        .section-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            letter-spacing: 3px;
+            line-height: 1.1;
+            margin-bottom: 16px;
+        }
+
+        .section-desc {
+            font-size: 1.1rem;
+            line-height: 1.7;
+            opacity: 0.85;
+            max-width: 700px;
+        }
+
+        .section-desc.center {
+            margin: 0 auto 48px;
+            text-align: center;
+        }
+
+        /* ── About ── */
+        #about {
+            background: rgba(15, 74, 38, 0.55);
+            overflow: hidden;
+        }
+
+        #about::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background:
+                repeating-linear-gradient(0deg, transparent, transparent 60px, rgba(255,255,255,0.03) 60px, rgba(255,255,255,0.03) 120px);
+            pointer-events: none;
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .about-visual {
+            position: relative;
+            display: flex;
+            justify-content: center;
+        }
+
+        .about-visual img {
+            width: 100%;
+            max-width: 420px;
+            border-radius: 20px;
+            border: 3px solid rgba(212,175,55,0.4);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+        }
+
+        .about-visual::after {
+            content: '';
+            position: absolute;
+            inset: -20px;
+            border: 2px solid rgba(212,175,55,0.15);
+            border-radius: 30px;
+            pointer-events: none;
+        }
+
+        .about-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            margin-top: 32px;
+        }
+
+        .stat-card {
+            background: rgba(11,29,58,0.5);
+            border: 1px solid rgba(212,175,55,0.2);
+            border-radius: 16px;
+            padding: 20px 16px;
+            text-align: center;
+            backdrop-filter: blur(8px);
+        }
+
+        .stat-card .stat-icon {
+            font-size: 1.8rem;
+            margin-bottom: 8px;
+        }
+
+        .stat-card h4 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.1rem;
+            letter-spacing: 2px;
+            color: var(--gold-bright);
+            margin-bottom: 4px;
+        }
+
+        .stat-card p {
+            font-size: 0.8rem;
+            opacity: 0.7;
+        }
+
+        .about-text p {
+            font-size: 1.05rem;
+            line-height: 1.8;
+            margin-bottom: 16px;
+            opacity: 0.9;
+        }
+
+        /* ── How to Buy ── */
+        #howtobuy {
+            background: rgba(11, 29, 58, 0.65);
+        }
+
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 24px;
+            margin-top: 48px;
+        }
+
+        .step-card {
+            background: var(--glass);
+            border: 1px solid rgba(212,175,55,0.2);
+            border-radius: 20px;
+            padding: 32px 24px;
+            text-align: center;
+            backdrop-filter: blur(12px);
+            transition: transform 0.3s, border-color 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .step-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--gold-dark), var(--gold-bright), var(--gold-dark));
+        }
+
+        .step-card:hover {
+            transform: translateY(-6px);
+            border-color: rgba(212,175,55,0.5);
+        }
+
+        .step-num {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 3rem;
+            color: rgba(212,175,55,0.25);
+            line-height: 1;
+            margin-bottom: 8px;
+        }
+
+        .step-card h3 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.4rem;
+            letter-spacing: 2px;
+            color: var(--gold-bright);
+            margin-bottom: 12px;
+        }
+
+        .step-card p {
+            font-size: 0.9rem;
+            line-height: 1.6;
+            opacity: 0.8;
+        }
+
+        .howtobuy-cta {
+            text-align: center;
+            margin-top: 48px;
+        }
+
+        /* ── Chart ── */
+        #chart {
+            background: rgba(11, 29, 58, 0.7);
+            text-align: center;
+        }
+
+        .chart-wrapper {
+            margin-top: 40px;
+            border-radius: 20px;
+            overflow: hidden;
+            border: 2px solid rgba(212,175,55,0.3);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+            background: #0d1117;
+        }
+
+        .chart-wrapper iframe {
+            width: 100%;
+            height: 600px;
+            border: none;
+            display: block;
+        }
+
+        .chart-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 24px;
+            color: var(--gold);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: color 0.3s;
+        }
+
+        .chart-link:hover {
+            color: var(--gold-bright);
+        }
+
+        /* ── Join Us ── */
+        #joinus {
+            background: rgba(15, 74, 38, 0.5);
+            text-align: center;
+            overflow: hidden;
+        }
+
+        #joinus::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(212,175,55,0.08) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .joinus-banner {
+            width: 100%;
+            max-width: 1000px;
+            border-radius: 20px;
+            box-shadow: 0 25px 70px rgba(0,0,0,0.5);
+            margin: 0 auto 40px;
+            position: relative;
+            z-index: 1;
+            border: 3px solid rgba(212,175,55,0.3);
+        }
+
+        .joinus-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .joinus-content .section-desc {
+            margin: 0 auto 36px;
+        }
+
+        .social-row {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-top: 32px;
+        }
+
+        .social-card {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: rgba(255,255,255,0.06);
+            border: 1px solid rgba(212,175,55,0.25);
+            border-radius: 16px;
+            padding: 16px 28px;
+            text-decoration: none;
+            color: var(--white);
+            transition: all 0.3s;
+        }
+
+        .social-card:hover {
+            background: rgba(212,175,55,0.15);
+            border-color: var(--gold);
+            transform: translateY(-3px);
+        }
+
+        .social-card svg {
+            width: 22px;
+            height: 22px;
+            fill: var(--gold-bright);
+        }
+
+        .social-card span {
+            font-weight: 700;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+        }
+
+        /* ── Footer ── */
+        footer {
+            background: rgba(6, 15, 31, 0.85);
+            padding: 32px 24px;
+            text-align: center;
+            border-top: 1px solid rgba(212,175,55,0.15);
+        }
+
+        footer p {
+            font-size: 0.8rem;
+            opacity: 0.5;
+            letter-spacing: 1px;
+        }
+
+        /* ── Mobile ── */
+        @media (max-width: 900px) {
+            nav {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                flex-direction: column;
+                background: rgba(11,29,58,0.98);
+                padding: 20px;
+                gap: 16px;
+                border-bottom: 1px solid rgba(212,175,55,0.2);
+            }
+
+            nav.open {
+                display: flex;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+
+            .about-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .about-stats {
+                grid-template-columns: 1fr;
+            }
+
+            .chart-wrapper iframe {
+                height: 450px;
+            }
+
+            .ca-bar {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            header {
+                padding: 12px 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header id="header">
+        <a href="#hero" class="header-brand">
+            <img src="logo.png" alt="FIFA 26 Logo">
+            <span>FIFA 26</span>
+        </a>
+
+        <nav id="nav">
+            <a href="#hero">Home</a>
+            <a href="#about">About</a>
+            <a href="#howtobuy">How to Buy</a>
+            <a href="#chart">Chart</a>
+            <a href="#joinus">Join Us</a>
+            <a href="https://swap.pump.fun/?output=pumppump" target="_blank" class="nav-buy">Buy Now</a>
+        </nav>
+
+        <div class="header-socials">
+            <a href="https://x.com/fifa26coin" target="_blank" title="X / Twitter">
+                <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+            </a>
+            <a href="https://dexscreener.com/solana/pumppump" target="_blank" title="DexScreener">
+                <svg viewBox="0 0 24 24"><path d="M3 3h8v8H3V3zm10 0h8v8h-8V3zM3 13h8v8H3v-8zm10 0h8v8h-8v-8z"/></svg>
+            </a>
+        </div>
+
+        <button class="menu-toggle" id="menuToggle" aria-label="Menu">
+            <span></span><span></span><span></span>
+        </button>
+    </header>
+
+    <!-- Hero -->
+    <section id="hero">
+        <video class="hero-video" autoplay muted loop playsinline>
+            <source src="video.mp4" type="video/mp4">
+        </video>
+        <div class="hero-overlay"></div>
+        <div class="hero-pitch-lines"></div>
+
+        <div class="hero-content">
+            <img src="logo.png" alt="FIFA 26" class="hero-logo">
+            <div class="hero-badge">⚽ World Cup Season 2026</div>
+            <h1 class="hero-title">FIFA <span class="gold">26</span></h1>
+            <p class="hero-tagline">The ultimate World Cup meme coin on Solana. Lace up, hit the pitch, and pump your way to glory.</p>
+
+            <div class="hero-buttons">
+                <a href="https://swap.pump.fun/?output=pumppump" target="_blank" class="btn btn-gold">⚽ Buy on PumpSwap</a>
+                <a href="#chart" class="btn btn-outline">📈 Live Chart</a>
+            </div>
+
+            <div class="ca-bar">
+                <span>CA:</span>
+                <code id="caText">pumppump</code>
+                <button class="copy-btn" id="copyCa">Copy</button>
+            </div>
+        </div>
+
+        <div class="scroll-hint">
+            <svg viewBox="0 0 24 24"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg>
+        </div>
+    </section>
+
+    <!-- About -->
+    <section id="about">
+        <div class="section-inner">
+            <div class="about-grid">
+                <div class="about-visual">
+                    <img src="logo.png" alt="FIFA 26 Token">
+                </div>
+                <div class="about-text">
+                    <span class="section-label">About</span>
+                    <h2 class="section-title">THE WORLD'S GAME,<br>ON THE BLOCKCHAIN</h2>
+                    <p>FIFA 26 is the meme coin built for football fans and crypto degens alike. Born on Pump.fun, fueled by World Cup energy, and ready to dominate the pitch.</p>
+                    <p>From the group stages to the final whistle — our community plays as one team. No offsides, no red cards, just pure pump energy on Solana.</p>
+
+                    <div class="about-stats">
+                        <div class="stat-card">
+                            <div class="stat-icon">⚽</div>
+                            <h4>Solana</h4>
+                            <p>Lightning-fast trades</p>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">🏆</div>
+                            <h4>Pump.fun</h4>
+                            <p>Meme coin launchpad</p>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">🌍</div>
+                            <h4>World Cup</h4>
+                            <p>2026 season vibes</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How to Buy -->
+    <section id="howtobuy">
+        <div class="section-inner" style="text-align:center;">
+            <span class="section-label">How to Buy</span>
+            <h2 class="section-title">GET ON THE PITCH</h2>
+            <p class="section-desc center">Score your FIFA 26 tokens in four easy steps. All buys go through PumpSwap on Solana.</p>
+
+            <div class="steps-grid">
+                <div class="step-card">
+                    <div class="step-num">01</div>
+                    <h3>Get a Wallet</h3>
+                    <p>Download Phantom or Solflare wallet. Create your account and securely store your seed phrase.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-num">02</div>
+                    <h3>Buy SOL</h3>
+                    <p>Purchase SOL from an exchange (Coinbase, Binance, etc.) and send it to your Solana wallet.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-num">03</div>
+                    <h3>Connect to PumpSwap</h3>
+                    <p>Head to PumpSwap, connect your wallet, and search for FIFA 26 using the contract address.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-num">04</div>
+                    <h3>Swap &amp; Hold</h3>
+                    <p>Swap SOL for FIFA 26, confirm the transaction, and you're officially on the team. LFG!</p>
+                </div>
+            </div>
+
+            <div class="howtobuy-cta">
+                <a href="https://swap.pump.fun/?output=pumppump" target="_blank" class="btn btn-gold">⚽ Buy FIFA 26 on PumpSwap</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Chart -->
+    <section id="chart">
+        <div class="section-inner">
+            <span class="section-label">Live Chart</span>
+            <h2 class="section-title">MATCH DAY STATS</h2>
+            <p class="section-desc center">Track FIFA 26 price action in real-time on DexScreener.</p>
+
+            <div class="chart-wrapper">
+                <iframe
+                    src="https://dexscreener.com/solana/pumppump?embed=1&theme=dark&trades=0&info=0"
+                    title="FIFA 26 DexScreener Chart"
+                    allowfullscreen>
+                </iframe>
+            </div>
+
+            <a href="https://dexscreener.com/solana/pumppump" target="_blank" class="chart-link">
+                View full chart on DexScreener →
+            </a>
+        </div>
+    </section>
+
+    <!-- Join Us -->
+    <section id="joinus">
+        <div class="section-inner joinus-content">
+            <img src="banner.png" alt="FIFA 26 Banner" class="joinus-banner">
+
+            <span class="section-label">Join Us</span>
+            <h2 class="section-title">JOIN THE SQUAD</h2>
+            <p class="section-desc center">The World Cup waits for no one. Join the FIFA 26 community, follow the action, and be part of the greatest pump on Solana.</p>
+
+            <div class="hero-buttons">
+                <a href="https://swap.pump.fun/?output=pumppump" target="_blank" class="btn btn-gold">⚽ Buy Now</a>
+                <a href="https://x.com/fifa26coin" target="_blank" class="btn btn-outline">Follow on X</a>
+            </div>
+
+            <div class="social-row">
+                <a href="https://x.com/fifa26coin" target="_blank" class="social-card">
+                    <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                    <span>@fifa26coin</span>
+                </a>
+                <a href="https://dexscreener.com/solana/pumppump" target="_blank" class="social-card">
+                    <svg viewBox="0 0 24 24"><path d="M3 3h8v8H3V3zm10 0h8v8h-8V3zM3 13h8v8H3v-8zm10 0h8v8h-8v-8z"/></svg>
+                    <span>DexScreener</span>
+                </a>
+                <a href="https://swap.pump.fun/?output=pumppump" target="_blank" class="social-card">
+                    <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+                    <span>PumpSwap</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>FIFA 26 &copy; 2026 | All Rights Reserved | Not affiliated with FIFA™</p>
+    </footer>
+
+    <script>
+        const header = document.getElementById('header');
+        const nav = document.getElementById('nav');
+        const menuToggle = document.getElementById('menuToggle');
+        const copyBtn = document.getElementById('copyCa');
+        const caText = document.getElementById('caText');
+        const CA = 'pumppump';
+
+        window.addEventListener('scroll', () => {
+            header.classList.toggle('scrolled', window.scrollY > 50);
+        });
+
+        menuToggle.addEventListener('click', () => {
+            nav.classList.toggle('open');
+        });
+
+        nav.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => nav.classList.remove('open'));
+        });
+
+        copyBtn.addEventListener('click', async () => {
+            try {
+                await navigator.clipboard.writeText(CA);
+                copyBtn.textContent = 'Copied!';
+                setTimeout(() => { copyBtn.textContent = 'Copy'; }, 2000);
+            } catch {
+                const ta = document.createElement('textarea');
+                ta.value = CA;
+                document.body.appendChild(ta);
+                ta.select();
+                document.execCommand('copy');
+                document.body.removeChild(ta);
+                copyBtn.textContent = 'Copied!';
+                setTimeout(() => { copyBtn.textContent = 'Copy'; }, 2000);
+            }
+        });
+    </script>
+</body>
+</html>
