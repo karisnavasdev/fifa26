@@ -11,30 +11,33 @@
     <link rel="icon" href="logo.png" type="image/png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg: #05080f;
-            --bg-elevated: #0c1220;
-            --bg-card: rgba(17, 24, 39, 0.82);
-            --line: rgba(255,255,255,0.08);
-            --line-gold: rgba(212,175,55,0.25);
-            --gold: #d4af37;
-            --gold-2: #f5d061;
-            --gold-dim: #9a7b2c;
-            --text: #f8fafc;
-            --text-2: #94a3b8;
-            --text-3: #64748b;
-            --green: #34d399;
-            --header: 80px;
+            --bg: #0a1628;
+            --bg-card: rgba(10, 30, 55, 0.88);
+            --line: rgba(255,255,255,0.12);
+            --line-gold: #ffd700;
+            --gold: #ffd700;
+            --gold-2: #fff176;
+            --gold-dim: #c9a000;
+            --pitch: #1db954;
+            --pump: #00e676;
+            --text: #ffffff;
+            --text-2: #c8d6e5;
+            --text-3: #8395a7;
+            --green: #00ff88;
+            --meme-stroke: 3px solid #000;
+            --header: 76px;
+            --countdown-h: 78px;
             --max: 1200px;
-            --radius: 12px;
-            --display: 'Oswald', sans-serif;
-            --body: 'Inter', sans-serif;
+            --radius: 16px;
+            --display: 'Bangers', cursive;
+            --body: 'Nunito', sans-serif;
         }
 
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-        html { scroll-behavior: smooth; scroll-padding-top: calc(var(--header) + 24px); }
+        html { scroll-behavior: smooth; scroll-padding-top: calc(var(--header) + var(--countdown-h) + 24px); }
 
         body {
             font-family: var(--body);
@@ -64,13 +67,27 @@
             position: absolute;
             inset: 0;
             background:
-                radial-gradient(ellipse 90% 70% at 50% 35%, rgba(5, 8, 15, 0.35) 0%, rgba(5, 8, 15, 0.72) 100%),
-                linear-gradient(180deg, rgba(5, 8, 15, 0.65) 0%, rgba(5, 8, 15, 0.5) 45%, rgba(5, 8, 15, 0.75) 100%);
+                radial-gradient(ellipse 90% 70% at 50% 35%, rgba(10, 22, 40, 0.25) 0%, rgba(10, 22, 40, 0.6) 100%),
+                linear-gradient(180deg, rgba(10, 22, 40, 0.45) 0%, rgba(10, 22, 40, 0.35) 45%, rgba(10, 22, 40, 0.55) 100%);
+        }
+
+        .site-bg-pattern {
+            position: absolute;
+            inset: 0;
+            opacity: 0.32;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='240' viewBox='0 0 400 240'%3E%3Cdefs%3E%3ClinearGradient id='gold' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%23f5d061'/%3E%3Cstop offset='50%25' stop-color='%23d4af37'/%3E%3Cstop offset='100%25' stop-color='%239a7b2c'/%3E%3C/linearGradient%3E%3C/defs%3E%3Ctext x='24' y='88' fill='url(%23gold)' font-family='Impact,Arial Black,sans-serif' font-size='32' font-weight='700' letter-spacing='5' opacity='0.9' transform='rotate(-24 200 120)'%3EWE ARE 26%3C/text%3E%3Ctext x='210' y='198' fill='url(%23gold)' font-family='Impact,Arial Black,sans-serif' font-size='26' font-weight='700' letter-spacing='4' opacity='0.55' transform='rotate(-24 310 210)'%3EWE ARE 26%3C/text%3E%3C/svg%3E");
+            background-size: 400px 240px;
+            background-repeat: repeat;
         }
 
         @media (max-width: 768px) {
             .site-bg-image {
                 background-position: center 25%;
+            }
+
+            .site-bg-pattern {
+                background-size: 280px 168px;
+                opacity: 0.16;
             }
         }
 
@@ -95,10 +112,10 @@
         }
 
         .topbar.is-scrolled {
-            background: rgba(5,8,15,0.92);
-            backdrop-filter: blur(20px);
-            border-color: var(--line);
-            box-shadow: 0 12px 40px rgba(0,0,0,.35);
+            background: rgba(10, 22, 40, 0.95);
+            backdrop-filter: blur(12px);
+            border-color: var(--gold);
+            box-shadow: 0 8px 0 #000, 0 12px 32px rgba(0,0,0,.4);
         }
 
         .logo-link {
@@ -109,23 +126,25 @@
         }
 
         .logo-link img {
-            width: 42px;
-            height: 42px;
-            border-radius: 8px;
-            border: 1px solid var(--line-gold);
+            width: 46px;
+            height: 46px;
+            border-radius: 50%;
+            border: var(--meme-stroke);
+            box-shadow: 3px 3px 0 var(--gold);
         }
 
         .logo-link strong {
             font-family: var(--display);
-            font-size: 1.35rem;
-            font-weight: 700;
-            letter-spacing: .06em;
+            font-size: 1.8rem;
+            font-weight: 400;
+            letter-spacing: .08em;
             text-transform: uppercase;
+            text-shadow: 2px 2px 0 #000, 0 0 20px rgba(255,215,0,.4);
         }
 
         .logo-link strong em {
             font-style: normal;
-            color: var(--gold-2);
+            color: var(--gold);
         }
 
         .nav {
@@ -135,17 +154,23 @@
         }
 
         .nav a {
-            font-size: .8rem;
-            font-weight: 500;
+            font-family: var(--display);
+            font-size: .95rem;
+            font-weight: 400;
+            letter-spacing: .06em;
             color: var(--text-2);
-            padding: 8px 14px;
-            border-radius: 8px;
-            transition: color .2s, background .2s;
+            padding: 6px 14px;
+            border-radius: 50px;
+            border: 2px solid transparent;
+            transition: all .2s;
         }
 
         .nav a:hover, .nav a.is-active {
-            color: var(--text);
-            background: rgba(255,255,255,.05);
+            color: #000;
+            background: var(--gold);
+            border-color: #000;
+            box-shadow: 2px 2px 0 #000;
+            transform: rotate(-2deg);
         }
 
         .topbar-right {
@@ -155,54 +180,113 @@
             flex-shrink: 0;
         }
 
-        .countdown {
+        /* ─── COUNTDOWN BAR ─── */
+        .countdown-bar {
+            position: fixed;
+            top: var(--header);
+            left: 0;
+            right: 0;
+            z-index: 999;
+            height: var(--countdown-h);
             display: flex;
             align-items: center;
-            gap: 10px;
-            padding: 6px 14px;
-            background: rgba(255,255,255,.04);
-            border: 1px solid var(--line);
-            border-radius: 100px;
+            justify-content: center;
+            padding: 0 16px;
+            background: linear-gradient(90deg, #0d2818, #1a3a6e, #0d2818);
+            border-bottom: var(--meme-stroke);
+            box-shadow: 0 4px 0 var(--gold);
         }
 
-        .countdown-tag {
-            font-size: .62rem;
-            font-weight: 600;
-            letter-spacing: .12em;
-            text-transform: uppercase;
-            color: var(--text-3);
+        .countdown-inner {
+            width: min(var(--max), 100%);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .countdown-meta {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            flex-shrink: 0;
+        }
+
+        .countdown-title {
+            font-family: var(--display);
+            font-size: 1rem;
+            letter-spacing: .1em;
+            color: var(--gold);
+            text-shadow: 2px 2px 0 #000;
+        }
+
+        .countdown-when {
+            font-size: .68rem;
+            font-weight: 700;
+            color: var(--text-2);
             white-space: nowrap;
         }
 
-        .countdown-digits {
+        .countdown-when b { color: var(--gold-2); }
+
+        .countdown-blocks {
             display: flex;
-            gap: 4px;
-            align-items: baseline;
+            align-items: center;
+            gap: 6px;
         }
 
-        .cd {
+        .cd-unit {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-width: 52px;
+            padding: 4px 8px 6px;
+            background: linear-gradient(180deg, #fff176, #ffd700);
+            border: var(--meme-stroke);
+            border-radius: 10px;
+            box-shadow: 3px 3px 0 #000;
+        }
+
+        .cd-val {
             font-family: var(--display);
-            font-size: 1rem;
-            font-weight: 600;
-            color: var(--gold-2);
-            min-width: 22px;
+            font-size: 1.35rem;
+            line-height: 1;
+            color: #000;
+            min-width: 36px;
             text-align: center;
         }
 
-        .cd-u {
-            font-size: .55rem;
-            color: var(--text-3);
-            margin-left: 1px;
+        .cd-lbl {
+            font-size: .5rem;
+            font-weight: 800;
+            letter-spacing: .12em;
+            text-transform: uppercase;
+            color: #333;
+            margin-top: 2px;
         }
 
-        .cd-dot { color: var(--text-3); font-size: .8rem; }
+        .cd-sep {
+            font-family: var(--display);
+            font-size: 1.4rem;
+            color: var(--gold);
+            text-shadow: 2px 2px 0 #000;
+            margin-bottom: 12px;
+        }
 
         .countdown-live {
             display: none;
-            font-size: .68rem;
-            font-weight: 700;
-            letter-spacing: .1em;
-            color: var(--green);
+            font-family: var(--display);
+            font-size: 1.1rem;
+            letter-spacing: .08em;
+            color: var(--pump);
+            text-shadow: 2px 2px 0 #000;
+            animation: pulseLive 1.2s ease-in-out infinite;
+            white-space: nowrap;
+        }
+
+        @keyframes pulseLive {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: .7; transform: scale(1.05); }
         }
 
         .icon-link {
@@ -218,6 +302,41 @@
 
         .icon-link:hover { border-color: var(--line-gold); background: rgba(212,175,55,.06); }
         .icon-link svg { width: 15px; height: 15px; fill: var(--text); }
+
+        .music-btn {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            border: var(--meme-stroke);
+            background: rgba(0, 0, 0, .45);
+            color: var(--gold-2);
+            font-size: 1rem;
+            cursor: pointer;
+            box-shadow: 2px 2px 0 var(--gold);
+            transition: transform .2s, background .2s;
+            flex-shrink: 0;
+        }
+
+        .music-btn:hover { transform: rotate(-4deg); background: var(--gold); color: #000; }
+        .music-btn.is-off { opacity: .55; box-shadow: 2px 2px 0 #555; }
+        .music-btn.is-pulse { animation: musicPulse 1.2s ease-in-out infinite; }
+
+        @keyframes musicPulse {
+            0%, 100% { box-shadow: 2px 2px 0 var(--gold); }
+            50% { box-shadow: 2px 2px 0 var(--gold), 0 0 0 6px rgba(255, 215, 0, .25); }
+        }
+
+        .bg-music-player {
+            position: fixed;
+            width: 1px;
+            height: 1px;
+            bottom: 0;
+            left: 0;
+            opacity: 0;
+            pointer-events: none;
+            z-index: -1;
+            overflow: hidden;
+        }
 
         .burger {
             display: none;
@@ -242,34 +361,39 @@
             justify-content: center;
             gap: 8px;
             padding: 12px 24px;
-            border-radius: 8px;
-            font-size: .84rem;
-            font-weight: 600;
-            border: none;
+            border-radius: 12px;
+            font-family: var(--display);
+            font-size: 1rem;
+            font-weight: 400;
+            letter-spacing: .06em;
+            text-transform: uppercase;
+            border: var(--meme-stroke);
             cursor: pointer;
             transition: transform .15s, box-shadow .15s, background .15s;
         }
 
         .btn-gold {
             background: linear-gradient(180deg, var(--gold-2) 0%, var(--gold) 100%);
-            color: #0a0f18;
-            box-shadow: 0 1px 0 rgba(255,255,255,.2) inset, 0 4px 16px rgba(212,175,55,.2);
+            color: #000;
+            box-shadow: 4px 4px 0 #000;
         }
 
         .btn-gold:hover {
-            transform: translateY(-1px);
-            box-shadow: 0 1px 0 rgba(255,255,255,.2) inset, 0 8px 24px rgba(212,175,55,.3);
+            transform: translate(-2px, -2px);
+            box-shadow: 6px 6px 0 #000;
         }
 
         .btn-outline {
-            background: transparent;
-            color: var(--text);
-            border: 1px solid var(--line);
+            background: var(--pitch);
+            color: #fff;
+            border: var(--meme-stroke);
+            box-shadow: 4px 4px 0 #000;
         }
 
         .btn-outline:hover {
-            border-color: var(--line-gold);
-            background: rgba(212,175,55,.05);
+            background: var(--pump);
+            color: #000;
+            transform: rotate(1deg) scale(1.03);
         }
 
         .btn:disabled { opacity: .35; cursor: not-allowed; transform: none !important; }
@@ -281,7 +405,7 @@
             display: flex;
             flex-direction: column;
             justify-content: center;
-            padding: calc(var(--header) + 48px) 24px 100px;
+            padding: calc(var(--header) + var(--countdown-h) + 48px) 24px 100px;
             overflow: hidden;
         }
 
@@ -315,35 +439,44 @@
         }
 
         .hero-kicker {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            font-size: .7rem;
-            font-weight: 600;
-            letter-spacing: .14em;
+            display: inline-block;
+            font-family: var(--display);
+            font-size: 1.1rem;
+            letter-spacing: .1em;
             text-transform: uppercase;
-            color: var(--gold-2);
+            color: #000;
+            background: var(--pump);
+            border: var(--meme-stroke);
+            padding: 6px 18px;
+            border-radius: 50px;
             margin-bottom: 20px;
+            box-shadow: 4px 4px 0 #000;
+            animation: wiggle 3s ease-in-out infinite;
         }
 
-        .hero-kicker::before {
-            content: '';
-            width: 24px;
-            height: 1px;
-            background: var(--gold);
+        @keyframes wiggle {
+            0%, 100% { transform: rotate(-2deg); }
+            50% { transform: rotate(2deg); }
         }
 
         .hero h1 {
             font-family: var(--display);
-            font-size: clamp(2.8rem, 6vw, 4.8rem);
-            font-weight: 700;
-            line-height: 1.02;
-            letter-spacing: .02em;
+            font-size: clamp(3.2rem, 8vw, 6rem);
+            font-weight: 400;
+            line-height: .95;
+            letter-spacing: .04em;
             text-transform: uppercase;
             margin-bottom: 18px;
+            text-shadow: 4px 4px 0 #000, 0 0 40px rgba(255,215,0,.3);
         }
 
-        .hero h1 span { color: var(--gold-2); }
+        .hero h1 span {
+            background: linear-gradient(180deg, #fff176, #ffd700, #ff9800);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            filter: drop-shadow(3px 3px 0 #000);
+        }
 
         .hero-lead {
             font-size: 1.05rem;
@@ -398,7 +531,16 @@
 
         .hero-art img {
             width: min(100%, 380px);
-            filter: drop-shadow(0 40px 80px rgba(0,0,0,.55));
+            filter: drop-shadow(0 20px 40px rgba(0,0,0,.6));
+            animation: floatLogo 4s ease-in-out infinite;
+            border: var(--meme-stroke);
+            border-radius: 20px;
+            box-shadow: 8px 8px 0 var(--gold);
+        }
+
+        @keyframes floatLogo {
+            0%, 100% { transform: translateY(0) rotate(-3deg); }
+            50% { transform: translateY(-14px) rotate(3deg); }
         }
 
         .hero-art::after {
@@ -415,11 +557,10 @@
 
         /* ─── TICKER ─── */
         .ticker {
-            border-block: 1px solid var(--line);
-            background: rgba(12, 18, 32, 0.65);
-            backdrop-filter: blur(8px);
+            border-block: var(--meme-stroke);
+            background: linear-gradient(90deg, #1a6b38, #0a1628, #1a6b38);
             overflow: hidden;
-            padding: 14px 0;
+            padding: 12px 0;
         }
 
         .ticker-track {
@@ -430,18 +571,16 @@
         }
 
         .ticker-item {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: .75rem;
-            font-weight: 600;
+            font-family: var(--display);
+            font-size: 1.1rem;
             letter-spacing: .08em;
             text-transform: uppercase;
-            color: var(--text-2);
+            color: #fff;
             white-space: nowrap;
+            text-shadow: 2px 2px 0 #000;
         }
 
-        .ticker-item b { color: var(--gold-2); font-weight: 700; }
+        .ticker-item b { color: var(--gold); }
 
         @keyframes ticker {
             from { transform: translateX(0); }
@@ -459,23 +598,40 @@
         .sec-head.center { text-align: center; }
         .sec-head.center p { margin-inline: auto; }
 
+        .meme-box {
+            background: var(--bg-card);
+            border: var(--meme-stroke);
+            border-radius: var(--radius);
+            padding: clamp(32px, 5vw, 56px);
+            box-shadow: 8px 8px 0 var(--gold);
+            backdrop-filter: blur(8px);
+        }
+
         .sec-label {
-            font-size: .68rem;
-            font-weight: 700;
-            letter-spacing: .16em;
+            display: inline-block;
+            font-family: var(--display);
+            font-size: 1rem;
+            letter-spacing: .12em;
             text-transform: uppercase;
-            color: var(--gold);
-            margin-bottom: 12px;
+            color: #000;
+            background: var(--gold);
+            border: 2px solid #000;
+            padding: 4px 16px;
+            border-radius: 50px;
+            margin-bottom: 14px;
+            box-shadow: 3px 3px 0 #000;
         }
 
         .sec-title {
             font-family: var(--display);
-            font-size: clamp(1.8rem, 4vw, 2.8rem);
-            font-weight: 700;
+            font-size: clamp(2.2rem, 5vw, 3.5rem);
+            font-weight: 400;
             text-transform: uppercase;
-            letter-spacing: .03em;
-            line-height: 1.1;
+            letter-spacing: .05em;
+            line-height: 1;
             margin-bottom: 12px;
+            text-shadow: 3px 3px 0 #000;
+            color: var(--gold);
         }
 
         .sec-desc {
@@ -483,6 +639,30 @@
             color: var(--text-2);
             max-width: 520px;
             line-height: 1.7;
+        }
+
+        /* ─── MUSIC ─── */
+        .music-embed {
+            max-width: 660px;
+            margin: 0 auto;
+            border-radius: var(--radius);
+            overflow: hidden;
+            border: 1px solid var(--line);
+            background: var(--bg-card);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 16px 48px rgba(0, 0, 0, 0.35);
+        }
+
+        .music-embed iframe {
+            width: 100%;
+            height: 371px;
+            border: none;
+            display: block;
+            border-radius: var(--radius);
+        }
+
+        @media (max-width: 720px) {
+            .music-embed iframe { height: 300px; }
         }
 
         /* ─── ABOUT ─── */
@@ -509,12 +689,15 @@
 
         .pillar {
             padding: 20px 16px;
-            background: var(--bg-card);
-            backdrop-filter: blur(10px);
-            border: 1px solid var(--line);
+            background: rgba(0,0,0,.3);
+            border: var(--meme-stroke);
             border-radius: var(--radius);
             text-align: center;
+            box-shadow: 4px 4px 0 var(--pitch);
+            transition: transform .2s;
         }
+
+        .pillar:hover { transform: rotate(-2deg) scale(1.03); }
 
         .pillar strong {
             display: block;
@@ -591,18 +774,18 @@
         }
 
         .nation {
-            background: var(--bg-card);
-            backdrop-filter: blur(8px);
-            border: 1px solid var(--line);
-            border-radius: 10px;
+            background: rgba(0,0,0,.35);
+            border: 2px solid #000;
+            border-radius: 12px;
             padding: 12px 8px;
             text-align: center;
             cursor: pointer;
-            transition: border-color .15s, transform .15s;
+            transition: all .15s;
+            box-shadow: 3px 3px 0 rgba(0,0,0,.5);
         }
 
-        .nation:hover { border-color: var(--line-gold); transform: translateY(-1px); }
-        .nation.on { border-color: var(--gold); background: rgba(212,175,55,.06); }
+        .nation:hover { transform: translateY(-3px) rotate(-1deg); border-color: var(--gold); box-shadow: 4px 4px 0 var(--gold); }
+        .nation.on { border-color: var(--gold); background: rgba(255,215,0,.15); box-shadow: 4px 4px 0 var(--gold); transform: scale(1.05); }
 
         .nation img {
             width: 32px;
@@ -622,13 +805,13 @@
         .nation .m { font-size: .6rem; color: var(--text-3); margin-top: 2px; }
 
         .slip {
-            background: var(--bg-card);
-            backdrop-filter: blur(12px);
-            border: 1px solid var(--line-gold);
+            background: rgba(0,0,0,.45);
+            border: var(--meme-stroke);
             border-radius: var(--radius);
             padding: 20px;
             position: sticky;
-            top: calc(var(--header) + 16px);
+            top: calc(var(--header) + var(--countdown-h) + 16px);
+            box-shadow: 6px 6px 0 var(--gold);
         }
 
         .slip h4 {
@@ -746,11 +929,14 @@
 
         .step {
             padding: 24px 20px;
-            background: var(--bg-card);
-            backdrop-filter: blur(10px);
-            border: 1px solid var(--line);
+            background: rgba(0,0,0,.35);
+            border: var(--meme-stroke);
             border-radius: var(--radius);
+            box-shadow: 5px 5px 0 var(--pitch);
+            transition: transform .2s;
         }
+
+        .step:hover { transform: rotate(1deg); }
 
         .step i {
             font-family: var(--display);
@@ -790,9 +976,9 @@
         /* ─── JOIN ─── */
         .join-banner {
             border-radius: 16px;
-            border: 1px solid var(--line-gold);
+            border: var(--meme-stroke);
             margin-bottom: 36px;
-            box-shadow: 0 24px 64px rgba(0,0,0,.35);
+            box-shadow: 10px 10px 0 var(--gold);
         }
 
         .join-actions {
@@ -880,6 +1066,13 @@
 
         .toast.on { opacity: 1; transform: translateX(-50%) translateY(0); }
 
+        .fbtn.on { background: var(--gold) !important; color: #000 !important; box-shadow: 2px 2px 0 #000; }
+        .music-embed { border: var(--meme-stroke); box-shadow: 8px 8px 0 var(--pitch); }
+        .chart-box { border: var(--meme-stroke); box-shadow: 8px 8px 0 #000; }
+        .ca-strip { border: var(--meme-stroke) !important; box-shadow: 4px 4px 0 var(--gold); background: rgba(0,0,0,.5) !important; }
+        .soc { border: 2px solid #000; box-shadow: 3px 3px 0 var(--gold); }
+        .soc:hover { transform: rotate(-2deg); background: var(--gold); color: #000; }
+
         /* ─── REVEAL ─── */
         .reveal { opacity: 0; transform: translateY(20px); transition: opacity .5s, transform .5s; }
         .reveal.in { opacity: 1; transform: none; }
@@ -897,8 +1090,13 @@
             .pillars { grid-template-columns: 1fr; }
         }
 
+        @media (max-width: 900px) {
+            .countdown-meta { display: none; }
+            .countdown-inner { justify-content: center; }
+        }
+
         @media (max-width: 720px) {
-            :root { --header: 64px; }
+            :root { --header: 64px; --countdown-h: 68px; }
             .topbar { grid-template-columns: auto 1fr auto; gap: 12px; padding: 0 16px; }
             .nav {
                 display: none;
@@ -913,7 +1111,9 @@
             .nav.open { display: flex; }
             .nav a { padding: 12px 16px; }
             .burger { display: block; }
-            .countdown-tag { display: none; }
+            .cd-unit { min-width: 42px; padding: 3px 5px 5px; }
+            .cd-val { font-size: 1.1rem; min-width: 28px; }
+            .cd-sep { font-size: 1.1rem; margin-bottom: 8px; }
             .steps { grid-template-columns: 1fr; }
             .foot-grid { grid-template-columns: 1fr; text-align: center; justify-items: center; }
             .chart-box iframe { height: 400px; }
@@ -925,6 +1125,7 @@
 <div class="site-bg" aria-hidden="true">
     <div class="site-bg-image"></div>
     <div class="site-bg-overlay"></div>
+    <div class="site-bg-pattern"></div>
 </div>
 
 <header class="topbar" id="topbar">
@@ -935,6 +1136,7 @@
 
     <nav class="nav" id="nav">
         <a href="#hero">Home</a>
+        <a href="#music">Music</a>
         <a href="#about">About</a>
         <a href="#betting">Betting</a>
         <a href="#howtobuy">How to Buy</a>
@@ -943,26 +1145,33 @@
     </nav>
 
     <div class="topbar-right">
-        <div class="countdown" id="countdownWrap">
-            <span class="countdown-tag">WC 2026</span>
-            <div class="countdown-digits" id="cdDigits">
-                <span class="cd" id="cdD">00</span><span class="cd-u">d</span>
-                <span class="cd-dot">·</span>
-                <span class="cd" id="cdH">00</span><span class="cd-u">h</span>
-                <span class="cd-dot">·</span>
-                <span class="cd" id="cdM">00</span><span class="cd-u">m</span>
-                <span class="cd-dot">·</span>
-                <span class="cd" id="cdS">00</span><span class="cd-u">s</span>
-            </div>
-            <span class="countdown-live" id="cdLive">LIVE</span>
-        </div>
+        <button type="button" class="music-btn is-pulse" id="musicToggle" aria-label="Toggle music" title="Dai Dai — tap to unmute">🔊</button>
         <a href="https://x.com/fifa26coin" target="_blank" class="icon-link" aria-label="X">
             <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
         </a>
-        <a href="https://swap.pump.fun/?output=pumppump" target="_blank" class="btn btn-gold" style="padding:9px 18px;font-size:.78rem">Buy</a>
+        <a href="https://swap.pump.fun/?output=pumppump" target="_blank" class="btn btn-gold" style="padding:9px 18px;font-size:.9rem">APE 🚀</a>
         <button class="burger" id="burger" aria-label="Menu"><span></span><span></span><span></span></button>
     </div>
 </header>
+
+<div class="countdown-bar" id="countdownBar">
+    <div class="countdown-inner">
+        <div class="countdown-meta">
+            <span class="countdown-title">⚽ WORLD CUP KICKOFF</span>
+            <span class="countdown-when">Jun 11 · Mexico v South Africa · <b>1:00 PM CST</b> · <b>8:00 PM BST</b></span>
+        </div>
+        <div class="countdown-blocks" id="cdDigits">
+            <div class="cd-unit"><span class="cd-val" id="cdD">00</span><span class="cd-lbl">Days</span></div>
+            <span class="cd-sep">:</span>
+            <div class="cd-unit"><span class="cd-val" id="cdH">00</span><span class="cd-lbl">Hrs</span></div>
+            <span class="cd-sep">:</span>
+            <div class="cd-unit"><span class="cd-val" id="cdM">00</span><span class="cd-lbl">Min</span></div>
+            <span class="cd-sep">:</span>
+            <div class="cd-unit"><span class="cd-val" id="cdS">00</span><span class="cd-lbl">Sec</span></div>
+        </div>
+        <span class="countdown-live" id="cdLive">● IT'S LIVE!</span>
+    </div>
+</div>
 
 <section class="hero" id="hero">
     <video class="hero-video" autoplay muted loop playsinline>
@@ -972,12 +1181,12 @@
 
     <div class="hero-grid">
         <div>
-            <div class="hero-kicker">World Cup 2026 · Solana</div>
-            <h1>The World's Game.<br><span>On Chain.</span></h1>
-            <p class="hero-lead">FIFA 26 is the World Cup meme coin on Solana. Trade on PumpSwap, back your nation in our prediction pool, and join a global community of holders.</p>
+            <div class="hero-kicker">⚽ WE ARE 26 · LFG</div>
+            <h1>FIFA <span>26</span><br>MEME COIN</h1>
+            <p class="hero-lead">The World Cup went on-chain. Pump it on Solana, bet on your nation, ape in with the squad. WAGMI. 🏆</p>
             <div class="hero-actions">
-                <a href="https://swap.pump.fun/?output=pumppump" target="_blank" class="btn btn-gold">Buy on PumpSwap</a>
-                <a href="#chart" class="btn btn-outline">Live Chart</a>
+                <a href="https://swap.pump.fun/?output=pumppump" target="_blank" class="btn btn-gold">🚀 APE IN</a>
+                <a href="#chart" class="btn btn-outline">📈 CHART</a>
             </div>
             <div class="ca-strip">
                 <label>CA</label>
@@ -993,31 +1202,59 @@
 
 <div class="ticker">
     <div class="ticker-track">
-        <span class="ticker-item"><b>48</b> Nations Qualified</span>
-        <span class="ticker-item"><b>Solana</b> Network</span>
-        <span class="ticker-item"><b>PumpSwap</b> Trading</span>
-        <span class="ticker-item"><b>DexScreener</b> Live Chart</span>
-        <span class="ticker-item"><b>World Cup</b> June 11, 2026</span>
-        <span class="ticker-item"><b>@fifa26coin</b> on X</span>
-        <span class="ticker-item"><b>48</b> Nations Qualified</span>
-        <span class="ticker-item"><b>Solana</b> Network</span>
-        <span class="ticker-item"><b>PumpSwap</b> Trading</span>
-        <span class="ticker-item"><b>DexScreener</b> Live Chart</span>
-        <span class="ticker-item"><b>World Cup</b> June 11, 2026</span>
-        <span class="ticker-item"><b>@fifa26coin</b> on X</span>
+        <span class="ticker-item">⚽ <b>WE ARE 26</b></span>
+        <span class="ticker-item">🚀 <b>LFG</b></span>
+        <span class="ticker-item">💎 <b>WAGMI</b></span>
+        <span class="ticker-item">🏆 <b>KICKOFF 1PM CST · 8PM BST</b></span>
+        <span class="ticker-item">⚡ <b>SOLANA</b></span>
+        <span class="ticker-item">🟢 <b>PUMP.FUN</b></span>
+        <span class="ticker-item">📈 <b>TO THE MOON</b></span>
+        <span class="ticker-item">🐦 <b>@fifa26coin</b></span>
+        <span class="ticker-item">⚽ <b>WE ARE 26</b></span>
+        <span class="ticker-item">🚀 <b>LFG</b></span>
+        <span class="ticker-item">💎 <b>WAGMI</b></span>
+        <span class="ticker-item">🏆 <b>KICKOFF 1PM CST · 8PM BST</b></span>
+        <span class="ticker-item">⚡ <b>SOLANA</b></span>
+        <span class="ticker-item">🟢 <b>PUMP.FUN</b></span>
+        <span class="ticker-item">📈 <b>TO THE MOON</b></span>
+        <span class="ticker-item">🐦 <b>@fifa26coin</b></span>
     </div>
 </div>
 
+<section class="section" id="music">
+    <div class="wrap reveal">
+        <div class="meme-box">
+        <div class="sec-head center">
+            <div class="sec-label">🎵 Anthem</div>
+            <h2 class="sec-title">Dai Dai Vibes</h2>
+            <p class="sec-desc">Dai Dai plays site-wide on loop. Tap 🔊 in the header if you need sound. 🔊</p>
+        </div>
+        <div class="music-embed">
+            <iframe
+                allow="autoplay *; encrypted-media *; fullscreen *; clipboard-write"
+                frameborder="0"
+                height="371"
+                sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation"
+                src="https://embed.music.apple.com/us/music-video/dai-dai/1896817434"
+                title="Dai Dai — Apple Music"
+                allowfullscreen>
+            </iframe>
+        </div>
+        </div>
+    </div>
+</section>
+
 <section class="section" id="about">
     <div class="wrap reveal">
+        <div class="meme-box">
         <div class="about-layout">
             <div class="about-copy">
                 <div class="sec-head">
-                    <div class="sec-label">About</div>
-                    <h2 class="sec-title">Built for Football.<br>Powered by Solana.</h2>
+                    <div class="sec-label">⚽ About</div>
+                    <h2 class="sec-title">The Meme Coin<br>For Football Degens</h2>
                 </div>
-                <p>FIFA 26 brings the energy of the 2026 World Cup to the blockchain. Launched on Pump.fun, it's a community token for fans who want to trade, compete, and celebrate the biggest tournament on earth.</p>
-                <p>Fast transactions, zero friction, and a squad that grows with every match day.</p>
+                <p>FIFA 26 is the World Cup meme coin on Solana. Born on Pump.fun, built for fans who wanna trade, bet, and send it with the squad. No cap. 🏆</p>
+                <p>Fast AF on Solana. Bet on 48 nations. Pump with the crowd. LFG.</p>
                 <div class="pillars">
                     <div class="pillar"><strong>Solana</strong><span>Network</span></div>
                     <div class="pillar"><strong>Pump.fun</strong><span>Launchpad</span></div>
@@ -1028,15 +1265,17 @@
                 <img src="logo.png" alt="FIFA 26">
             </div>
         </div>
+        </div>
     </div>
 </section>
 
 <section class="section" id="betting">
     <div class="wrap reveal">
+        <div class="meme-box">
         <div class="sec-head center">
-            <div class="sec-label">Prediction Pool</div>
-            <h2 class="sec-title">Back Your Nation</h2>
-            <p class="sec-desc">All 48 World Cup 2026 qualifiers. Pick a winner, set your stake, and climb the leaderboard.</p>
+            <div class="sec-label">🎰 Betting</div>
+            <h2 class="sec-title">Pick Your Winner</h2>
+            <p class="sec-desc">48 nations. One trophy. Place your bets and climb the board. Who you got? 👀</p>
         </div>
 
         <div class="bet-controls">
@@ -1066,7 +1305,7 @@
                     <button class="chip" data-v="10000">10K</button>
                 </div>
                 <div class="ret-row"><span>Return</span><b id="retVal">—</b></div>
-                <button class="btn btn-gold" id="placeBet" style="width:100%" disabled>Place Bet</button>
+                <button class="btn btn-gold" id="placeBet" style="width:100%" disabled>⚽ PLACE BET</button>
                 <p class="slip-note">Community pool for entertainment. Saved locally in your browser.</p>
             </aside>
         </div>
@@ -1075,15 +1314,17 @@
             <h5>Leaderboard</h5>
             <div class="lb-list" id="lb"></div>
         </div>
+        </div>
     </div>
 </section>
 
 <section class="section" id="howtobuy">
     <div class="wrap reveal">
+        <div class="meme-box">
         <div class="sec-head center">
-            <div class="sec-label">How to Buy</div>
-            <h2 class="sec-title">Four Steps to FIFA 26</h2>
-            <p class="sec-desc">Purchase through PumpSwap on Solana in minutes.</p>
+            <div class="sec-label">💰 How to Buy</div>
+            <h2 class="sec-title">Get FIFA 26 Now</h2>
+            <p class="sec-desc">4 steps. 2 minutes. You're in. 🚀</p>
         </div>
         <div class="steps">
             <div class="step"><i>01</i><h3>Wallet</h3><p>Install Phantom or Solflare and secure your recovery phrase.</p></div>
@@ -1092,36 +1333,40 @@
             <div class="step"><i>04</i><h3>Swap</h3><p>Swap SOL for FIFA 26 and confirm. You're on the team.</p></div>
         </div>
         <div class="center-cta">
-            <a href="https://swap.pump.fun/?output=pumppump" target="_blank" class="btn btn-gold">Open PumpSwap</a>
+            <a href="https://swap.pump.fun/?output=pumppump" target="_blank" class="btn btn-gold">🚀 BUY ON PUMPSWAP</a>
+        </div>
         </div>
     </div>
 </section>
 
 <section class="section" id="chart">
     <div class="wrap reveal">
+        <div class="meme-box">
         <div class="sec-head center">
-            <div class="sec-label">Market</div>
-            <h2 class="sec-title">Live Price Chart</h2>
-            <p class="sec-desc">Real-time data from DexScreener on Solana.</p>
+            <div class="sec-label">📈 Chart</div>
+            <h2 class="sec-title">Watch It Pump</h2>
+            <p class="sec-desc">Live chart on DexScreener. Green candles only. 📊</p>
         </div>
         <div class="chart-box">
             <iframe src="https://dexscreener.com/solana/pumppump?embed=1&theme=dark&trades=0&info=0" title="Chart" allowfullscreen></iframe>
         </div>
         <div class="chart-link"><a href="https://dexscreener.com/solana/pumppump" target="_blank">Open on DexScreener →</a></div>
+        </div>
     </div>
 </section>
 
 <section class="section" id="joinus">
     <div class="wrap reveal" style="text-align:center">
+        <div class="meme-box">
         <img src="banner.png" alt="FIFA 26" class="join-banner">
         <div class="sec-head center">
-            <div class="sec-label">Community</div>
-            <h2 class="sec-title">Join the Squad</h2>
-            <p class="sec-desc">Follow, trade, and grow with the FIFA 26 community.</p>
+            <div class="sec-label">👥 Join Us</div>
+            <h2 class="sec-title">Join The Squad</h2>
+            <p class="sec-desc">Ape in, follow on X, and ride the World Cup wave. WAGMI. 🏆</p>
         </div>
         <div class="join-actions">
-            <a href="https://swap.pump.fun/?output=pumppump" target="_blank" class="btn btn-gold">Buy FIFA 26</a>
-            <a href="https://x.com/fifa26coin" target="_blank" class="btn btn-outline">Follow @fifa26coin</a>
+            <a href="https://swap.pump.fun/?output=pumppump" target="_blank" class="btn btn-gold">🚀 APE IN</a>
+            <a href="https://x.com/fifa26coin" target="_blank" class="btn btn-outline">🐦 @fifa26coin</a>
         </div>
         <div class="socials">
             <a href="https://x.com/fifa26coin" target="_blank" class="soc">
@@ -1137,6 +1382,7 @@
                 PumpSwap
             </a>
         </div>
+        </div>
     </div>
 </section>
 
@@ -1147,6 +1393,7 @@
             <span>FIFA 26</span>
         </div>
         <nav class="foot-nav">
+            <a href="#music">Music</a>
             <a href="#about">About</a>
             <a href="#betting">Betting</a>
             <a href="#howtobuy">Buy</a>
@@ -1158,10 +1405,14 @@
 </footer>
 
 <div class="toast" id="toast"></div>
+<div class="bg-music-player" id="ytPlayer"></div>
 
+<script src="https://www.youtube.com/iframe_api"></script>
 <script>
 const CA = 'pumppump';
-const KICKOFF = new Date('2026-06-11T19:00:00-06:00');
+// FIFA.com countdown — opening match kickoff (Mexico v South Africa)
+// 13:00 Mexico City (CST) = 19:00 UTC = 8:00 PM BST — per FIFA schedule
+const KICKOFF = new Date('2026-06-11T13:00:00-06:00');
 const POOL_KEY = 'fifa26_bet_pool';
 
 const TEAMS = [
@@ -1203,8 +1454,13 @@ function tick() {
     const d = KICKOFF - Date.now();
     const dig = document.getElementById('cdDigits');
     const live = document.getElementById('cdLive');
-    if (d <= 0) { dig.style.display='none'; live.style.display='inline'; return; }
-    dig.style.display='flex'; live.style.display='none';
+    if (d <= 0) {
+        dig.style.display = 'none';
+        live.style.display = 'inline';
+        return;
+    }
+    dig.style.display = 'flex';
+    live.style.display = 'none';
     document.getElementById('cdD').textContent = pad(Math.floor(d/864e5));
     document.getElementById('cdH').textContent = pad(Math.floor(d%864e5/36e5));
     document.getElementById('cdM').textContent = pad(Math.floor(d%36e5/6e4));
@@ -1265,7 +1521,7 @@ document.getElementById('placeBet').onclick = () => {
     const v = +document.getElementById('stake').value;
     if (!v||v<=0) return toast('Enter a valid stake');
     const p = pool(); p[pick.id]=(p[pick.id]||0)+v; save(p);
-    toast(`${v.toLocaleString()} placed on ${pick.name}`);
+    toast(`⚽ ${v.toLocaleString()} on ${pick.name}! LFG`);
     renderNations(); renderLb();
 };
 
@@ -1276,7 +1532,7 @@ const nav = document.getElementById('nav');
 window.onscroll = () => {
     topbar.classList.toggle('is-scrolled', scrollY > 30);
     let cur = '';
-    document.querySelectorAll('section[id]').forEach(s => { if (scrollY >= s.offsetTop-140) cur = s.id; });
+    document.querySelectorAll('section[id]').forEach(s => { if (scrollY >= s.offsetTop - 180) cur = s.id; });
     nav.querySelectorAll('a').forEach(a => a.classList.toggle('is-active', a.getAttribute('href')==='#'+cur));
 };
 document.getElementById('burger').onclick = () => nav.classList.toggle('open');
@@ -1291,6 +1547,93 @@ document.getElementById('copyCa').onclick = async () => {
 
 const revealObs = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); }), { threshold: .06 });
 document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
+
+/* ─── SITE-WIDE MUSIC (Dai Dai loop) ─── */
+const YT_TRACK = 'X9CsK_nuqdE';
+let ytPlayer = null;
+let musicOn = localStorage.getItem('fifa26_music') !== 'off';
+let musicUnlocked = false;
+
+function updateMusicBtn() {
+    const btn = document.getElementById('musicToggle');
+    btn.textContent = musicOn ? '🔊' : '🔇';
+    btn.classList.toggle('is-off', !musicOn);
+    btn.classList.toggle('is-pulse', musicOn && !musicUnlocked);
+    btn.title = musicOn ? (musicUnlocked ? 'Dai Dai — playing' : 'Tap for sound') : 'Music off';
+}
+
+function playBgMusic() {
+    if (!ytPlayer || !musicOn) return;
+    try {
+        ytPlayer.setVolume(75);
+        if (musicUnlocked) ytPlayer.unMute();
+        ytPlayer.playVideo();
+    } catch {}
+}
+
+function unlockMusic() {
+    if (musicUnlocked) return;
+    musicUnlocked = true;
+    if (ytPlayer) {
+        try { ytPlayer.unMute(); } catch {}
+        playBgMusic();
+    }
+    updateMusicBtn();
+    if (musicOn && !localStorage.getItem('fifa26_music_hint')) {
+        localStorage.setItem('fifa26_music_hint', '1');
+        toast('🎵 Dai Dai on — WAGMI');
+    }
+}
+
+['click', 'keydown', 'touchstart'].forEach(ev =>
+    document.addEventListener(ev, unlockMusic, { passive: true })
+);
+
+window.onYouTubeIframeAPIReady = () => {
+    ytPlayer = new YT.Player('ytPlayer', {
+        videoId: YT_TRACK,
+        playerVars: {
+            autoplay: 1,
+            loop: 1,
+            playlist: YT_TRACK,
+            controls: 0,
+            disablekb: 1,
+            fs: 0,
+            modestbranding: 1,
+            rel: 0,
+            playsinline: 1
+        },
+        events: {
+            onReady: () => {
+                if (musicOn) {
+                    try { ytPlayer.mute(); } catch {}
+                    playBgMusic();
+                }
+                updateMusicBtn();
+            },
+            onStateChange: (e) => {
+                if (musicOn && e.data === YT.PlayerState.ENDED) playBgMusic();
+            }
+        }
+    });
+};
+
+document.getElementById('musicToggle').onclick = (e) => {
+    e.stopPropagation();
+    unlockMusic();
+    musicOn = !musicOn;
+    localStorage.setItem('fifa26_music', musicOn ? 'on' : 'off');
+    if (!ytPlayer) return updateMusicBtn();
+    if (musicOn) playBgMusic();
+    else { try { ytPlayer.pauseVideo(); } catch {} }
+    updateMusicBtn();
+};
+
+document.addEventListener('visibilitychange', () => {
+    if (!document.hidden && musicOn) playBgMusic();
+});
+
+updateMusicBtn();
 </script>
 </body>
 </html>
